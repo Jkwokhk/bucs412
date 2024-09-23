@@ -19,8 +19,9 @@ from django.urls import path, include
 from django.conf.urls.static import static
 from django.conf import settings
 urlpatterns = [
+    
     path('admin/', admin.site.urls),
     path('hw/', include('hw.urls')),
-    path('hw3/', include('hw3.urls'))
+    path('', include('hw3.urls'))
 ] + static(settings.STATIC_URL, 
             document_root = settings.STATIC_ROOT)
