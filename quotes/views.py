@@ -54,7 +54,7 @@ def quote(request):
 def show_all(request):
     '''
     Function to handle the URL request for /hw3 (main page)
-    Delegate rendering to the template hw/ show_all.html
+    Delegate rendering to the template hw3/ show_all.html
     '''
     # Use this template to render the response
     template_name = 'quotes/show_all.html'
