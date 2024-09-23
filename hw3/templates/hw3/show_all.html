@@ -1,5 +1,10 @@
 <!-- hw3/templates/hw3/show_all.html -->
  {% extends 'hw3/base.html' %}
  {% block content %}
-<p>Test</p>
+ {% for quote in quotes %}
+ <p>{{quote.quote}}</p>
+ {%endfor %}
+ {% for image in images %}
+ <img src="{{image.image}}" alt="Bob Marley Image">
+ {%endfor %}
  {% endblock %}

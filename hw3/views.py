@@ -6,7 +6,7 @@ import random, time
 # Create your views here.
 # All the quotes here as a global variable
 quotes = [
-    "One good thing about music, when it hist you you feel no pain",
+    "One good thing about music, when it hits you you feel no pain",
     "The good times of today, are the sad thoughts of tomorrow",
     "Money can't buy life",
     "Every man gotta right to decide his own destiny",
@@ -23,21 +23,21 @@ images = [
 
 def about(request):
     '''
-    Function to handle the URL request for /hw (main page)
+    Function to handle the URL request for /hw3 (main page)
     Delegate rendering to the template hw3/ about.html
     '''
     # Use this template to render the response
     template_name = 'hw3/about.html'
     # create a dictionary of context variables for the template
     context = {
-        
+
     }
     # delegate rendering work to the template
     return render(request, template_name, context)
 def quote(request):
     '''
-    Function to handle the URL request for /hw (main page)
-    Delegate rendering to the template hw/ home.html
+    Function to handle the URL request for /hw3 (main page)
+    Delegate rendering to the template hw3/ quote.html
     '''
     # Use this template to render the response
     template_name = 'hw3/quote.html'
@@ -53,17 +53,15 @@ def quote(request):
     return render(request, template_name, context)
 def show_all(request):
     '''
-    Function to handle the URL request for /hw (main page)
-    Delegate rendering to the template hw/ home.html
+    Function to handle the URL request for /hw3 (main page)
+    Delegate rendering to the template hw/ show_all.html
     '''
     # Use this template to render the response
     template_name = 'hw3/show_all.html'
     # create a dictionary of context variables for the template
     context = {
-        "current_time": time.ctime(),
-        'letter1' : chr(random.randint(65, 90)), # letter from A to Z
-        'letter2' : chr(random.randint(65, 90)), # letter from A to Z
-        'number' : random.randint(1,10),
+        'quotes': [{'quote':quotes[i]} for i in range(len(quotes))],
+        'images':[{'image':images[i]} for i in range(len(images))],
     }
     # delegate rendering work to the template
     return render(request, template_name, context)

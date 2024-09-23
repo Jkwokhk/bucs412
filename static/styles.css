@@ -1,3 +1,48 @@
+title{
+    text-align: center;
+    font-family: cursive;
+}
+h1{
+    text-align: center;
+    font-family: cursive;
+}
 p{
+    font-size: large;
     text-align: center;
 }
+h3{
+    font-size: large;
+    font-family: cursive;
+    text-align: center;
+}
+img{
+    display: block;
+    width: 600;
+    height: 400;
+    
+    margin: 20 auto;
+    
+}
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #dddddd;
+  }
+  
+  li {
+    float: left;
+  }
+  
+  li a {
+    display: block;
+    padding: 8px;
+    font-family: monospace;
+  }
+  h2{
+    text-align: center;
+  }
+  body{
+    background-color: antiquewhite;
+  }
