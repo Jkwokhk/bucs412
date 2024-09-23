@@ -22,6 +22,6 @@ urlpatterns = [
     
     path('admin/', admin.site.urls),
     path('hw/', include('hw.urls')),
-    path('', include('hw3.urls'))
+    path('', include('quotes.urls'))
 ] + static(settings.STATIC_URL, 
             document_root = settings.STATIC_ROOT)

@@ -23,11 +23,11 @@ images = [
 
 def about(request):
     '''
-    Function to handle the URL request for /hw3 (main page)
-    Delegate rendering to the template hw3/ about.html
+    Function to handle the URL request for /quotes (main page)
+    Delegate rendering to the template quotes/ about.html
     '''
     # Use this template to render the response
-    template_name = 'hw3/about.html'
+    template_name = 'quotes/about.html'
     # create a dictionary of context variables for the template
     context = {
 
@@ -40,7 +40,7 @@ def quote(request):
     Delegate rendering to the template hw3/ quote.html
     '''
     # Use this template to render the response
-    template_name = 'hw3/quote.html'
+    template_name = 'quotes/quote.html'
     # Selecting a random quote and image 
     quote = random.choice(quotes)
     image = random.choice(images)
@@ -57,7 +57,7 @@ def show_all(request):
     Delegate rendering to the template hw/ show_all.html
     '''
     # Use this template to render the response
-    template_name = 'hw3/show_all.html'
+    template_name = 'quotes/show_all.html'
     # create a dictionary of context variables for the template
     context = {
         'quotes': [{'quote':quotes[i]} for i in range(len(quotes))],
