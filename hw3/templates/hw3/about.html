@@ -1,14 +1,6 @@
-<!-- hw/templates/hw/about.html -->
-<html>
-    <head>
-        <title>Hello, World!</title>
-        <link rel="stylesheet" href="/static/styles.css">
-    </head>
-    <body>
-        <h1>Hello, world!</h1>
-        <p>Welcome to Django</p>
-        <p>This page is brought by letters {{letter1}} and {{letter2}} and number {{number}}</p>
-        <hr>
-        This page was generated at {{current_time}}
-    </body>
-</html>
+<!-- hw3/templates/hw3/about.html -->
+{% extends 'hw3/base.html' %}
+{% block content %}
+<h2>Quotes from Bob Marley</h2>
+<p>Bob Marley is a Jamaican songwriter and guitarist. His influence upon various populations remains unparalleled, irrespective of race, color or creed. His revolutionary yet unifying music, challenging colonialism, racism, “fighting against ism and scism” as he sang in “One Drop,” has had profound effects even in countries where English isn't widely spoken.</p>
+{% endblock %}

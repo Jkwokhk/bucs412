@@ -1,0 +1,19 @@
+<!-- hw3/templates/hw3/base.html -->
+<html>
+    <head>
+        <title>Bob Marley Quote of the Day</title>
+        <link rel="stylesheet" href="/static/styles.css">
+    </head>
+    <body>
+        <nav>
+            <ul>
+                <li><a href="{% url 'quote' %}">Quote of the day</a></li>
+                <li><a href="{% url 'about' %}"></a>About</li>
+                <li><a href="{% url 'show_all' %}">All quotes</a></li>
+            </ul>
+        </nav>
+        {% block content %}
+        <!-- Enter content here -->
+        {% endblock %}
+    </body>
+</html>
