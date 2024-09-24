@@ -65,3 +65,4 @@ def show_all(request):
     }
     # delegate rendering work to the template
     return render(request, template_name, context)
+
