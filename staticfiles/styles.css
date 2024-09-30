@@ -46,3 +46,6 @@ ul {
   body{
     background-color: antiquewhite;
   }
+  input{
+    text-align: center;
+  }

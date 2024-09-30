@@ -5,17 +5,19 @@
     <h2>
         Place an Order
     </h2>
-    <form action="{% url 'confirmation'}" method="POST">
+    <form action="{% url 'confirmation' %}" method="POST">
         <!-- CSRF token as security measure -->
          {% csrf_token %}
-         <p>
-         <h3>Select your items</h3>
-         
-         <input type="checkbox" name="orange_chicken"> Orange Chicken $10
-         <input type="checkbox" name="kungpao_chicken"> Kung Pao Chicken $8
-         <input type="checkbox" name="crab_rangoon"> Crab Rangoon $2
-         <input type="checkbox" name="seasame_chicken"> Seasame Chicken $ 12
-        </p>
+         {% for item in menu %}
+         <input type="checkbox" name="{{ item.name }}" value="{{ item.price }}"> {{ item.name }} $ {{ item.price }}<br>
+         {% endfor %}
+         <div id="extras" style="display: block;">
+             <h4>Extras for Crab Rangoon</h4>
+             {% for extra in extras %}
+             <input type="checkbox" name="{{ extra.topping }}" value="{{ extra.price }}"> {{ extra.topping }} $ {{ extra.price }}<br>
+             {% endfor %}
+         </div>
+        
         <p>
         <h3>Today's Special</h3>
         <input type="checkbox" name="special"> {{special}} $15
@@ -36,3 +38,4 @@
         </p>
     </form>
  </div>
+ {% endblock %}

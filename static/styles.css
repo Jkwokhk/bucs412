@@ -46,3 +46,13 @@ ul {
   body{
     background-color: antiquewhite;
   }
+  #checkbox-2 {
+    display: none;
+  }
+  
+  #checkbox-1:checked ~ #checkbox-2 {
+    display: block;
+  }
+  input{
+    text-align: center;
+  }

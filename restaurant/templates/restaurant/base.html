@@ -4,14 +4,29 @@
     <head>
         <link rel="stylesheet" href="{% static 'styles.css' %}">
         <title>Restaurant</title>
+        <script>
+            // script to toggle topping options for crab rangoons
+            function toppings(){
+                const fooditem = document.getElementById("fooditem");
+                const extras = document.getElementById("extras");
+                const food = fooditem.name;
+                if(food == "Crab Rangoon"){
+                    extrasDiv.style.display = "block";
+                }
+                else{
+                    extras.Div.style.display = "none";
+                }
+
+            }
+        </script>
     </head>
     <body>
         <h1>Chanda Express</h1>
         <hr>
         <nav>
             <ul>
-                <li><a href="{% url 'main'}">Main Page</a></li>
-                <li><a href="{% url 'order'}">Order Now</a></li>
+                <li><a href="{% url 'main' %}">Main Page</a></li>
+                <li><a href="{% url 'order' %}">Order Now</a></li>
             </ul>
         </nav>
         {% block content %}

@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'hw', #NEW_APP
     'quotes',
     'formdata',
+    'restaurant',
 ]
 
 MIDDLEWARE = [
