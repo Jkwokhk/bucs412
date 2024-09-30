@@ -2,9 +2,20 @@
 # description: write view functions to handle URL requests for the web app
 from django.shortcuts import render, redirect
 from django.http import HttpRequest, HttpResponse
-import random, time
+import random, datetime
 # Create your views here.
-# Daily special items
+# Daily special items and menu items
+extras = {
+        'Extra Crispy': 1,
+        'Extra Cream': 2,
+        'Extra Stuffing': 2,
+    }
+menu = {
+        'Orange Chicken': 10,
+        'Seasame Chicken': 12,
+        'Kung Pao Chicken': 8,
+        'Crab Rangoons': 4,
+    }
 specials = ['Chippy with Curry Sauce', 'Bombaclat', 'Peking Duck', 'Extra Hot Fire Chicken Noodles', 'Stargazy Pie', 'Bull Testies']
 def main(request):
     template_name = 'restaurant/main.html'
@@ -16,17 +27,8 @@ def main(request):
 def order(request):
     template_name = 'restaurant/order.html'
     special = random.choice(specials)
-    menu = [
-        {'name': "Orange Chicken", 'price': 10},
-        {'name': "Kung Pao Chicken", 'price': 8},
-        {'name': "Seasame Chicken", 'price': 12},
-        {'name': "Crab Rangoon", 'price': 2},
-    ]
-    extras = [
-        {'topping': "Extra Crispy", 'price': 1},
-        {'topping': "Extra Cream", 'price': 1},
-        {'topping': "Extra Stuffing", 'price': 1.5},
-    ]
+    request.session['special'] = special
+    
     context = {
         'special': special,
         'menu': menu,
@@ -41,25 +43,29 @@ def confirmation(request):
         name = request.POST['name']
         phone = request.POST['phone']
         email = request.POST['email']
+        special = request.session.get('special')
         special_instructions = request.POST['special_instructions']
-        items_ordered = []
-        total_price = 0
-        for item in request.POST:
-            if item in ['name', 'phone','email','special_instructions']:
-                continue
-            print(item)
-            item_price = 5
-            # item_price = float(request.POST[item].price) if request.POST[item].price else 0
-            items_ordered.append((item, item_price))
-            total_price += item_price
-            ready = time.localtime 
+        ordered_extras = request.POST.getlist('extras')
+        ordered_items = request.POST.getlist('menu')
+        extra_price = sum(extras[item] for item in ordered_extras if item in extras)
+        total_price = sum(menu[item] for item in ordered_items if item in menu)
+        ordered_special = 'special' in request.POST
+        if(ordered_special):
+            total_price += 15
+        total_price = total_price + extra_price
+        
+        ready_time = datetime.datetime.now() + datetime.timedelta(minutes=random.randint(30, 60))
+        ready_time_str = ready_time.strftime("%H:%M")
         context = {
-            'items_ordered': items_ordered,
-            'total_price': total_price,
+            
             'name': name,
             'phone': phone,
             'email': email,
-            'special_instructions': special_instructions
+            'special_instructions': special_instructions,
+            'total_price': total_price,
+            'ordered_items': ordered_items,
+            'ready_time': ready_time_str,
+            'special': special,
 
         }
         return render(request, template_name, context)
