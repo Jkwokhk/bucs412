@@ -1,0 +1,22 @@
+<!-- restaurant/templates/restaurant/base.html -->
+ {% load static %}
+ <html>
+    <head>
+        <link rel="stylesheet" href="{% static 'styles.css' %}">
+        <title>Restaurant</title>
+    </head>
+    <body>
+        <h1>Chanda Express</h1>
+        <hr>
+        <nav>
+            <ul>
+                <li><a href="{% url 'main'}">Main Page</a></li>
+                <li><a href="{% url 'order'}">Order Now</a></li>
+            </ul>
+        </nav>
+        {% block content %}
+        <!-- Enter Content here -->
+         {% endblock %}
+
+    </body>
+ </html>

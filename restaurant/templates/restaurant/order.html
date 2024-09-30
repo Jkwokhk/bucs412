@@ -1,0 +1,38 @@
+<!-- restaurant/templates/restaurant/order.html -->
+ {% extends 'restaurant/base.html' %}
+ {% block content %}
+ <div>
+    <h2>
+        Place an Order
+    </h2>
+    <form action="{% url 'confirmation'}" method="POST">
+        <!-- CSRF token as security measure -->
+         {% csrf_token %}
+         <p>
+         <h3>Select your items</h3>
+         
+         <input type="checkbox" name="orange_chicken"> Orange Chicken $10
+         <input type="checkbox" name="kungpao_chicken"> Kung Pao Chicken $8
+         <input type="checkbox" name="crab_rangoon"> Crab Rangoon $2
+         <input type="checkbox" name="seasame_chicken"> Seasame Chicken $ 12
+        </p>
+        <p>
+        <h3>Today's Special</h3>
+        <input type="checkbox" name="special"> {{special}} $15
+        </p>
+        <p>
+            <h3>Special Instructions</h3>
+            <textarea name="special_instructions" rows="3" cols="60"></textarea>
+        </p>
+        <p>
+            <h3>Customer Information</h3>
+            Name: <input type="text" name="name">
+            Phone: <input type="text" name="phone">
+            Email: <input type="text" name="email">
+        </p>
+        <p>
+            <h3>Place your Order!</h3>
+            <input type="submit">
+        </p>
+    </form>
+ </div>
