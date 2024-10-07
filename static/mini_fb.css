@@ -20,13 +20,8 @@ ul, li {
     padding: 0px;
     list-style-type: none;
 }
-h1{
-    font-family:Verdana, Geneva, Tahoma, sans-serif;
-    color: #150484;
-    text-align: center;
-    font-size: xx-large;
-}
- h2, h3, h4, h5, h6 {
+
+ h1,h2, h3, h4, h5, h6 {
     font-family:Verdana, Geneva, Tahoma, sans-serif;
     color: #150484;
     text-align: center;
@@ -137,7 +132,8 @@ div.status {
 }
 
 .crop img {
-    width: 200px; 
+    width: 350px; 
+    height: 350px;
     margin: 0px 0 0 -50px;
     border: 0;
 }
@@ -206,7 +202,3 @@ div.status {
 
 }
 
-img{
-    width: 750;
-    height: 750;
-}
