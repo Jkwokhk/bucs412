@@ -8,8 +8,8 @@
  
      {% for a in profiles %}
      <article>
-
-        <img src="{{a.image_url}}" alt="{{a.image_url}}">
+        <div class="crop"><img src="{{a.image_url}}" alt="{{a.image_url}}"></div>
+        
 
          <h3>{{a.first_name}} {{a.last_name}}</h2>
          <h3>{{a.city}}</h3>
