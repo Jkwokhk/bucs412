@@ -38,7 +38,7 @@ p {
 
 header {
     background-color: #fff;
-    /* max-width: 900px; */
+    max-width: 900px;
     gap: 25px;
     margin: 20px auto;
     align-self: center;
@@ -123,19 +123,224 @@ div.status {
 
 /* This code will help crop an image to display a small size on the all profiles page */
 .crop {
-    width: 600px;
-    height: 550px;
+    width: 500px;
+    height: 450px;
     overflow: hidden;
     border: 4px solid #fff;
     background-color: #fff;
     border-radius: 8px;
+    justify-content: center;
+    justify-items: center;
 }
 
 .crop img {
-    width: 600px; 
-    height: 550px;
-    margin: 0px 0 0 ;
+    width: 500px; /* This CSS was derived from NetNinja's multi-column grid example. */
+
+    body {
+        margin: 30px;
+        background: #5151f2;
+        font-family:Verdana, Geneva, Tahoma, sans-serif;
+        
+    }
+    
+    a:link,  a:visited {
+        text-decoration: none;
+        color: #150484;
+        /* padding: 14px 25px; */
+        /* text-align: center; */
+        text-decoration: none;
+        display: inline-block;
+    }
+    
+    ul, li {
+        padding: 0px;
+        list-style-type: none;
+    }
+    
+    h1, h2, h3, h4, h5, h6 {
+        font-family:Verdana, Geneva, Tahoma, sans-serif;
+        color: #150484;
+    }
+    strong {
+        font-family:Verdana, Geneva, Tahoma, sans-serif;
+        color: #150484;
+    }
+    
+    p {
+        color: #150484;
+    }
+    
+    header {
+        background-color: #fff;
+        /* max-width: 900px; */
+        gap: 25px;
+        margin: 20px auto;
+        align-self: center;
+        border-bottom: 1px solid #bbb;
+        position: sticky;
+        top: 0;
+        z-index: 999;
+        
+        
+    }
+    
+    footer { 
+        
+        text-align: center;
+        border-top: 1px solid #fff;
+    }
+    
+    aside {
+        padding: 30px;
+        border-left: 1px solid #fff;
+    }
+    
+    main {
+        margin-top: 100px;
+        margin: 20px auto;
+        
+    }
+    
+    .grid-container {
+        background: #fff;
+        gap: 25px;
+        margin: 20px auto;
+        display: grid;
+        grid-template-columns: repeat(5, 1fr);
+    }
+    
+    .status-messages {
+        background: #fff;
+        gap: 25px;
+        border-top: 10px;
+        margin: 20px auto;
+        display: grid;
+        grid-template-columns: 1fr;   
+    }
+    
+    nav {
+        border-top: 1px solid #150484;
+        align-items: top;
+        font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+    
+    nav li {
+        display: inline;
+    }
+    
+    
+    profile.featured {
+        grid-column: span 4;
+        display: grid; /* nested grid */
+        gap: 60px;
+        grid-template-columns: 2fr 1fr;
+        align-items: center;
+        border-bottom: 1px #bbc7c7;
+        padding-bottom: 40px;
+        margin: 20px auto;
+    }
+    
+    profile img, profile.featured img {
+        width: 100%;
+        max-width: 300px;
+        border: 4px solid #fff;
+    
+    }
+    
+    div.status {
+        color:#150484; 
+        width: 95%;
+        padding: 10px;
+        margin: 0px;
+        text-align: justify;
+    }
+    
+    /* This code will help crop an image to display a small size on the all profiles page */
+    .crop {
+        width: 150px;
+        height: 150px;
+        overflow: hidden;
+        border: 4px solid #fff;
+        background-color: #fff;
+        border-radius: 8px;
+    }
+    
+    .crop img {
+        width: 200px; 
+        margin: 0px 0 0 -50px;
+        border: 0;
+    }
+    
+    /* responsive styles: adapt to smaller screen sizes */
+    @media screen and (max-width: 950px) {
+    
+        .grid-container {
+            background: #ddd;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 25px;
+            margin: 20px auto;
+        }
+    
+    }
+    
+    @media screen and (max-width: 800px) {
+    
+        .grid-container {
+            background: #ddd;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 25px;
+            margin: 20px auto;
+        }
+    
+    }
+    
+    @media screen and (max-width: 600px) {
+    
+        .grid-container {
+            background: #ddd;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 25px;
+            margin: 20px auto;
+        }
+    
+    }
+    
+    
+    @media screen and (max-width: 400px) {
+    
+        .grid-container {
+            background: #ddd;
+            display: grid;
+            grid-template-columns: repeat(1, 1fr);
+            gap: 25px;
+            margin: 20px auto;
+        }
+        profile, profile.featured {
+            
+            display: block; 
+            margin: 0px 20px;
+        }
+    }
+    
+    @media screen and (max-width: 500px) {
+    
+        profile, profile.featured {
+            
+            display: block; 
+            margin: 0px 20px;
+        }
+    
+    }
+    
+    height: 450px;
+    margin: 0px 0 0 -50px;
     border: 0;
+    justify-content: center;
+    justify-items: center;
+    object-fit: cover;
     
 }
 
