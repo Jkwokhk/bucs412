@@ -138,10 +138,10 @@ div.status {
     border: 0;
 }
 
-/* img{
+img{
     width: 500px;
     height: 500px;
-} */
+}
 
 /* responsive styles: adapt to smaller screen sizes */
 @media screen and (max-width: 950px) {
