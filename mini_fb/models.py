@@ -13,3 +13,7 @@ class Profile(models.Model):
     city = models.TextField(blank=False)
     email = models.TextField(blank=False)
     image_url = models.URLField(blank=True)
+
+    def __str__(self):
+        '''Return a string representation of this Profile object.'''
+        return f'{self.first_name} by {self.city}'
