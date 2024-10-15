@@ -68,11 +68,11 @@ class CreateStatusMessageView(CreateView):
     form_class = CreateStatusMessageForm
     template_name = 'mini_fb/create_status_form.html'
     
-    # def get_context_data(self, **kwargs: Any) -> dict[str, Any]:
-    #     context = super().get_context_data(**kwargs)
-    #     profile = Profile.objects.get(pk=self.kwargs['pk'])
-    #     context['profile'] = profile
-    #     return context
+    def get_context_data(self, **kwargs: Any) -> dict[str, Any]:
+        context = super().get_context_data(**kwargs)
+        profile = Profile.objects.get(pk=self.kwargs['pk'])
+        context['profile'] = profile
+        return context
     
     def form_valid(self, form):
         '''handle form submission'''
