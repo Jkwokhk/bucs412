@@ -17,3 +17,22 @@ class Profile(models.Model):
     def __str__(self):
         '''Return a string representation of this Profile object.'''
         return f'{self.first_name} by {self.city}'
+    
+    def get_status_messages(self):
+        '''return all status messages about this profile'''
+        message = StatusMessage.objects.filter(profile=self)
+        return message
+
+class StatusMessage(models.Model):
+    '''Encapsulate the idea of a status message in profile'''
+    # data attributes of status message
+    timestamp = models.DateTimeField(auto_now=True)
+    message = models.TextField(blank=False)
+    profile = models.ForeignKey("Profile", on_delete=models.CASCADE)
+
+    def __str__(self):
+        '''return string representation of this Status object'''
+        return f'{self.message}'
+    
+    
+    

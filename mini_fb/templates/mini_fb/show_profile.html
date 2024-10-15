@@ -15,8 +15,18 @@
         </div>
 
     </profile>
-
-
+    <div>
+        <h2>Status:</h2>
+        {% for s in profile.get_status_messages %}
+        <profile>
+            <div>
+                <strong>by {{s.first_name}} at {{s.timestamp}}</strong>
+                <p>{{s.message}}</p>
+            </div>
+        </profile>
+        {%endfor%}
+    </div>
+        
 
 </main>
 
