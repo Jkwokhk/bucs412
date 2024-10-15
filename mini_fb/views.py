@@ -63,6 +63,28 @@ class CreateProfileForm(CreateView):
         return reverse('show_profile', kwargs={'pk': self.object.pk})
     
 
+class CreateStatusMessageView(CreateView):
+    '''a form to create status for profile'''
+    form_class = CreateStatusMessageForm
+    template_name = 'mini_fb/create_status_form.html'
+    
+    # def get_context_data(self, **kwargs: Any) -> dict[str, Any]:
+    #     context = super().get_context_data(**kwargs)
+    #     profile = Profile.objects.get(pk=self.kwargs['pk'])
+    #     context['profile'] = profile
+    #     return context
+    
+    def form_valid(self, form):
+        '''handle form submission'''
+        profile = Profile.objects.get(pk=self.kwargs['pk'])
+        form.instance.profile = profile
+        return super().form_valid(form)
+    
+    def get_success_url(self) -> str:
+        '''return URL to redirect after success'''
+        return reverse('show_profile', kwargs={'pk': self.kwargs['pk']})
+    
+
 
 
 

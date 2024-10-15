@@ -15,6 +15,7 @@
         </div>
 
     </profile>
+    <a href="{% url 'create_status' %}">Add Status Message</a>
     <div>
         <h2>{{profile.first_name}} Status:</h2>
         {% for s in profile.get_status_messages %}
@@ -26,8 +27,14 @@
             </div>
         </profile>
         {%endfor%}
+        <ul>
+            {% for s in profile.statusmessage_set.all %}
+            <p>{{s.message}}</p>
+            <p>{{s.timestamp}}</p>
+        </ul>
+            {%endfor%}
     </div>
-        
+    
 
 </main>
 
