@@ -5,18 +5,14 @@
 <form method="POST">
 {% csrf_token %}
 <table>
-    {% for field in form %}
+    
     {{form.as_p}}
     <input type="submit" name="Add Profile" value="Add Profile">
 </table>
 
 
 
-<!-- {{form.as_p}}
-
-{{form.as_table}} -->
-
-
+   
 
 </form>
 {%endblock%}
