@@ -1,0 +1,23 @@
+<!-- mini_fb/templates/mini_fb/show_profile.html -->
+
+{% extends 'mini_fb/base.html' %}
+{% block content %}
+
+<main class="grid-container">
+    <profile class="featured">
+
+        {% if profile.image_url %}
+        <img src="{{profile.image_url}}" alt="{{profile.image_url}}">
+        {% endif %}
+        <div>
+            <h2>{{profile.last_name}}</h2>
+            <strong> by {{profile.first_name}}</strong>
+        </div>
+
+    </profile>
+
+
+
+</main>
+
+{% endblock %}

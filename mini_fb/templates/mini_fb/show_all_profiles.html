@@ -7,7 +7,7 @@
  <main class="grid-container">
  
      {% for a in profiles %}
-     <article>
+     <profile>
         <div class="crop"><img src="{{a.image_url}}" alt="{{a.image_url}}"></div>
         
 
@@ -15,7 +15,7 @@
          <h3>{{a.city}}</h3>
  
  
-     </article>
+         </profile>
      {% endfor %}
  
  </main>
