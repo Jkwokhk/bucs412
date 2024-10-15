@@ -2,8 +2,10 @@ from django.shortcuts import render
 # mini_fb/views.py
 # define views for mini_fb
 # Create your views here.
-
-from django.views.generic import ListView, DetailView
+from typing import Any
+from django.urls import reverse
+from django.views.generic import ListView, DetailView, CreateView
+from .forms import *
 from .models import *
 import random
 
@@ -25,3 +27,42 @@ class ShowProfilePageView(DetailView):
         '''Return one profile object '''
         pk = self.kwargs.get('pk')
         return Profile.objects.get(pk=pk)
+    
+class CreateProfileForm(CreateView):
+    '''a view to create a new profile and save it to database'''
+    form_class = CreateProfileForm
+    template_name = "mini_fb/create_profile_form.html"
+
+    def get_context_data(self, **kwargs: Any) -> dict[str, Any]:
+        '''
+        Build the dict of context data for this view
+        '''
+        # superclass context data
+        context = super().get_context_data(**kwargs)
+        # find pk from URL
+        pk = self.kwargs['pk']
+        # find corresponding profile
+        profile = Profile.objects.get(pk=pk)
+        # add profile to context data
+        context['profile'] = profile
+
+
+        return context
+
+    def form_valid(self, form):
+        '''
+        Handle the form submission
+        '''
+        print(form.cleaned_data)
+        profile = Profile.objects.get(pk=self.kwargs['pk'])
+        form.instance.profile = profile
+        return super().form_valid(form)
+    
+    def get_success_url(self):
+        '''return URL to redirect after submit successfully'''
+        return reverse('show_profile', kwargs={'pk': self.kwargs['pk']})
+    
+
+
+
+
