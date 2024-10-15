@@ -8,8 +8,12 @@
  
      {% for a in profiles %}
      <profile>
-        <div class="crop"><img src="{{a.image_url}}" alt="{{a.image_url}}"></div>
+        {% if a.image_url %}
+        <div class="crop"><a href="{% url 'show_profile' a.pk%}">
+            <img src="{{a.image_url}}" alt="{{a.image_url}}">
+        </a></div>
         
+        {% endif %}
 
          <h3>{{a.first_name}} {{a.last_name}}</h2>
          <h3>{{a.city}}</h3>
