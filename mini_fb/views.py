@@ -20,8 +20,8 @@ class ShowProfilePageView(DetailView):
     template_name = 'mini_fb/show_profile.html'
     context_object_name = 'profile'
 
-    '''pick profile at random'''
+    '''pick profile '''
     def get_object(self):
-        '''Return one profile object chosen randomly'''
-        all_profiles = Profile.objects.all()
-        return random.choice(all_profiles)
+        '''Return one profile object '''
+        pk = self.kwargs.get('pk')
+        return Profile.objects.get(pk=pk)
