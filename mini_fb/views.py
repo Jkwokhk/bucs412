@@ -33,29 +33,29 @@ class CreateProfileForm(CreateView):
     form_class = CreateProfileForm
     template_name = "mini_fb/create_profile_form.html"
 
-    # def get_context_data(self, **kwargs: Any) -> dict[str, Any]:
-    #     '''
-    #     Build the dict of context data for this view
-    #     '''
-    #     # superclass context data
-    #     context = super().get_context_data(**kwargs)
-    #     # find pk from URL
-    #     pk = self.kwargs['pk']
-    #     # find corresponding profile
-    #     profile = Profile.objects.get(pk=pk)
-    #     # add profile to context data
-    #     context['profile'] = profile
+    def get_context_data(self, **kwargs: Any) -> dict[str, Any]:
+        '''
+        Build the dict of context data for this view
+        '''
+        # superclass context data
+        context = super().get_context_data(**kwargs)
+        # find pk from URL
+        pk = self.kwargs['pk']
+        # find corresponding profile
+        profile = Profile.objects.get(pk=pk)
+        # add profile to context data
+        context['profile'] = profile
 
 
-    #     return context
+        return context
 
     def form_valid(self, form):
         '''
         Handle the form submission
         '''
         # print(form.cleaned_data)
-        # profile = Profile.objects.get(pk=self.kwargs['pk'])
-        # form.instance.profile = profile
+        profile = Profile.objects.get(pk=self.kwargs['pk'])
+        form.instance.profile = profile
         return super().form_valid(form)
     
     def get_success_url(self):
@@ -82,7 +82,7 @@ class CreateStatusMessageView(CreateView):
     
     def get_success_url(self) -> str:
         '''return URL to redirect after success'''
-        return reverse('show_profile', kwargs={'pk': self.kwargs['pk']})
+        return reverse('show_profile', kwargs={'pk': self.object.pk})
     
 
 
