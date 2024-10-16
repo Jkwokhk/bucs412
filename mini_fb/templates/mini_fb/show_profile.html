@@ -15,9 +15,11 @@
         </div>
 
     </profile>
-    <a href="{% url 'create_status' profile.pk %}">Add Status Message</a>
+    
     <div>
+        <a href="{% url 'create_status' profile.pk %}" style="text-decoration: underline;">Add Status Message</a>
         <h2>{{profile.first_name}} Status:</h2>
+        
         {% for s in profile.get_status_messages %}
         <profile>
             <div>
