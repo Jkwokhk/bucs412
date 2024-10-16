@@ -51,18 +51,18 @@ class CreateProfileForm(CreateView):
 
     #     return context
 
-    # def form_valid(self, form):
-    #     '''
-    #     Handle the form submission
-    #     '''
-    #     # print(form.cleaned_data)
-    #     profile = Profile.objects.get(pk=self.kwargs['pk'])
-    #     form.instance.profile = profile
-    #     return super().form_valid(form)
+    def form_valid(self, form):
+        '''
+        Handle the form submission
+        '''
+        # print(form.cleaned_data)
+        
+        return super().form_valid(form)
     
     def get_success_url(self):
         '''return URL to redirect after submit successfully'''
-        return reverse('show_profile', kwargs={'pk': self.kwargs['pk']})
+        
+        return reverse('show_profile', kwargs={'pk': self.object.pk})
     
 
 class CreateStatusMessageView(CreateView):
