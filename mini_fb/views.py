@@ -62,7 +62,7 @@ class CreateProfileForm(CreateView):
     
     def get_success_url(self):
         '''return URL to redirect after submit successfully'''
-        return reverse('show_profile', kwargs={'pk': self.object.pk})
+        return reverse('show_profile', kwargs={'pk': self.kwargs['pk']})
     
 
 class CreateStatusMessageView(CreateView):
@@ -85,7 +85,7 @@ class CreateStatusMessageView(CreateView):
     
     def get_success_url(self) -> str:
         '''return URL to redirect after success'''
-        return reverse('show_profile', kwargs={'pk': self.object.pk})
+        return reverse('show_profile', kwargs={'pk': self.kwargs['pk']})
     
 
 

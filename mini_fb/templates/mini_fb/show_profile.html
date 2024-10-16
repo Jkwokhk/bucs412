@@ -27,12 +27,7 @@
             </div>
         </profile>
         {%endfor%}
-        <ul>
-            {% for s in profile.statusmessage_set.all %}
-            <p>{{s.message}}</p>
-            <p>{{s.timestamp}}</p>
-        </ul>
-            {%endfor%}
+        
     </div>
     
 
