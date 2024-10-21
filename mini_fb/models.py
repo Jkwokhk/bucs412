@@ -36,6 +36,9 @@ class StatusMessage(models.Model):
     message = models.TextField(blank=False)
     profile = models.ForeignKey("Profile", on_delete=models.CASCADE)
 
+    def get_images(self):
+        return Image.objects.filter(status_message = self)
+
     def __str__(self):
         '''return string representation of this Status object'''
         return f'{self.message}'

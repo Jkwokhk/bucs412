@@ -26,6 +26,12 @@
                 
                 <p>{{s.message}}</p>
                 <p>{{s.timestamp}}</p>
+                {% for img in s.get_images %}
+                    <div>
+                        <img src="{{img.image_file.url}}" alt="{{img.image_file.url}}">
+                    </div>
+                    
+                {%endfor%}
             </div>
         </profile>
         {%endfor%}
