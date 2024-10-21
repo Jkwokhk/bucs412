@@ -6,7 +6,7 @@
 <main class="grid-container">
     <profile class="featured">
 
-        {% if profile.image_url %}
+        {% if profile.image_file.url %}
         <img src="{{profile.image_file.url}}" alt="{{profile.image_file.url}}">
         {% endif %}
         <div>

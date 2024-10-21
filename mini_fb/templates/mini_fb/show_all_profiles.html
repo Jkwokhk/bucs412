@@ -8,7 +8,7 @@
  
      {% for a in profiles %}
      <profile>
-        {% if a.image_url %}
+        {% if a.image_file.url %}
         <div class="crop"><a href="{% url 'show_profile' a.pk%}">
             <img src="{{a.image_file.url}}" alt="{{a.image_file.url}}">
         </a></div>

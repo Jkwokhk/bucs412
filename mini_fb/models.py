@@ -1,5 +1,6 @@
 from django.db import models
 from django.urls import reverse
+from django.utils import timezone
 # mini_fb/models.py
 # Defining data objects
 # Create your models here.
@@ -40,4 +41,13 @@ class StatusMessage(models.Model):
         return f'{self.message}'
     
     
-    
+class Image(models.Model):
+    '''encapsulates the idea of an image in profile'''
+    # data attributes of image
+    image_file = models.ImageField(upload_to='images/')
+    status_message = models.ForeignKey(StatusMessage, on_delete=models.CASCADE)
+    timestamp = models.DateTimeField(default=timezone.now)
+
+    def __str__(self):
+        '''return str representation of this image object'''
+        return f'{self.status_message} at {self.timestamp}'
