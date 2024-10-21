@@ -118,4 +118,16 @@ class DeleteStatusMessageView(DeleteView):
 
     def get_success_url(self) -> str:
         '''return URL to redirect after success'''
-        return reverse('show_profile', kwargs={'pk': self.kwargs['pk']})
+        return reverse('show_profile', kwargs={'pk': self.object.profile.pk})
+
+class UpdateStatusMessageView(UpdateView):
+    '''form to update status'''
+    model = StatusMessage
+    template_name = 'mini_fb/update_status_form.html'
+    context_object_name = 'status_message'
+    fields = ['message']
+
+    def get_success_url(self) -> str:
+        '''return URL to redirect after success'''
+        #  returns to profile object
+        return reverse('show_profile', kwargs={'pk': self.object.profile.pk})

@@ -114,10 +114,15 @@ profile img, profile.featured img {
 div.status {
     color:#150484; 
     width: 95%;
-    padding: 10px;
-    margin: 0px;
+    padding: 2px;
     text-align: justify;
 }
+/* div.status img{
+    width:auto;
+    height:auto;
+    border: 3px;
+    margin: 5px;
+} */
 
 /* This code will help crop an image to display a small size on the all profiles page */
 .crop {

@@ -19,23 +19,26 @@
     <div>
         <a href="{% url 'update_profile' profile.pk%}" style="text-decoration: underline;">Update Profile</a>
         <a href="{% url 'create_status' profile.pk %}" style="text-decoration: underline;">Add Status Message</a>
+
         <h2>{{profile.first_name}} Status:</h2>
         
         {% for s in profile.get_status_messages %}
         <profile>
             <div>
                 
-                <p>{{s.message}}</p>
-                <p>{{s.timestamp}}</p>
+                
                 <div>
                 <a href="{% url 'delete_status' s.pk %}" style="text-decoration: underline;">Delete</a>
+                <a href="{% url 'update_status' s.pk %}" style="text-decoration: underline;">Update</a>
                 </div>
                 {% for img in s.get_images %}
-                    <div>
-                        <img src="{{img.image_file.url}}" alt="{{img.image_file.url}}">
+                    <div class="status">
+                        <img src="{{img.image_file.url}}" alt="{{img.image_file.url}}" style="margin: 0px; ">
                     </div>
                     
                 {%endfor%}
+                <p>{{s.message}}</p>
+                <p>{{s.timestamp}}</p>
             </div>
         </profile>
         {%endfor%}
