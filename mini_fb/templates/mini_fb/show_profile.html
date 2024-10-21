@@ -17,6 +17,7 @@
     </profile>
     
     <div>
+        <a href="{% url 'update_profile' profile.pk%}" style="text-decoration: underline;">Update Profile</a>
         <a href="{% url 'create_status' profile.pk %}" style="text-decoration: underline;">Add Status Message</a>
         <h2>{{profile.first_name}} Status:</h2>
         
