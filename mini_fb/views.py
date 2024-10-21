@@ -78,9 +78,18 @@ class CreateStatusMessageView(CreateView):
     
     def form_valid(self, form):
         '''handle form submission'''
-        profile = Profile.objects.get(pk=self.kwargs['pk'])
-        print(self.kwargs)
-        form.instance.profile = profile
+        # profile = Profile.objects.get(pk=self.kwargs['pk'])
+        # print(self.kwargs)
+        # form.instance.profile = profile
+        # save the status message to database
+        sm = form.save()
+        # read the files from the form
+        files = self.request.FILES.getlist('files')
+        for file in files:
+            # link img to status msg
+            img = Image(image_file=file, status_message=sm)
+            img.save()
+
         return super().form_valid(form)
     
     def get_success_url(self) -> str:

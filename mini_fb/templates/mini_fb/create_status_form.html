@@ -2,11 +2,13 @@
 {% extends 'mini_fb/base.html' %}
 {% block content %}
 <h2>Post a status message</h2>
-<form method="POST" action="{% url 'create_status' profile.pk %}">
+<!-- enctype to indicate this form might include file submission data -->
+<form method="POST" action="{% url 'create_status' profile.pk %}" enctype="multipart/form-data">
 {% csrf_token %}
 <table>
     
     {{form.as_p}}
+    <input type="file" name="files" multiple />
     <input type="submit" name="Add Profile" value="Create Status">
 </table>
 
