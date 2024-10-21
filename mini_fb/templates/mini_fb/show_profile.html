@@ -32,8 +32,8 @@
                 <a href="{% url 'update_status' s.pk %}" style="text-decoration: underline;">Update</a>
                 </div>
                 {% for img in s.get_images %}
-                    <div class="status">
-                        <img src="{{img.image_file.url}}" alt="{{img.image_file.url}}" style="margin: 0px; ">
+                    <div class="crop">
+                        <img src="{{img.image_file.url}}" alt="{{img.image_file.url}}" style="display: inline-block; ">
                     </div>
                     
                 {%endfor%}
