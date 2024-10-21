@@ -7,7 +7,7 @@
     <profile class="featured">
 
         {% if profile.image_url %}
-        <img src="{{profile.image_url}}" alt="{{profile.image_url}}">
+        <img src="{{profile.image_file.url}}" alt="{{profile.image_file.url}}">
         {% endif %}
         <div>
             <h2>{{profile.first_name}} {{profile.last_name}}</h2>

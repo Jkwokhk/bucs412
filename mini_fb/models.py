@@ -13,7 +13,8 @@ class Profile(models.Model):
     last_name = models.TextField(blank=False)
     city = models.TextField(blank=False)
     email = models.TextField(blank=False)
-    image_url = models.URLField(blank=True)
+    # image_url = models.URLField(blank=True)
+    image_file = models.ImageField(blank=True)
 
     def __str__(self):
         '''Return a string representation of this Profile object.'''
