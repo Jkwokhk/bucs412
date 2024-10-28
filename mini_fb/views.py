@@ -1,4 +1,6 @@
-from django.shortcuts import render
+from django.http import HttpRequest
+from django.http.response import HttpResponse as HttpResponse
+from django.shortcuts import render, redirect
 # mini_fb/views.py
 # define views for mini_fb
 # Create your views here.
@@ -8,6 +10,7 @@ from django.views.generic import ListView, DetailView, CreateView, UpdateView, D
 from .forms import *
 from .models import *
 import random
+from django.views import View
 
 # class-based view
 class ShowAllProfilesView(ListView):
@@ -131,3 +134,21 @@ class UpdateStatusMessageView(UpdateView):
         '''return URL to redirect after success'''
         #  returns to profile object
         return reverse('show_profile', kwargs={'pk': self.object.profile.pk})
+    
+class CreateFriendView(View):
+    '''view for creating friend relationship'''
+    def dispatch(self, request: HttpRequest, *args: Any, **kwargs: Any) -> HttpResponse:
+        profile = Profile.objects.get(pk=self.kwargs['pk'])
+        other = Profile.objects.get(pk=self.kwargs['other_pk'])
+        friendship = profile.add_friend(other)
+
+        return redirect('show_profile', pk=profile.pk)
+    
+class ShowFriendSuggestionsView(DetailView):
+    model = Profile
+    template_name = 'mini_fb/friend_suggestions.html'
+    def get_context_data(self, **kwargs: Any) -> dict[str, Any]:
+        context = super().get_context_data(**kwargs)
+        profile = self.get_object()
+        context['friend_suggestions'] = profile.get_friend_suggestions()
+        return context

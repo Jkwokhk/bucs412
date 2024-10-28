@@ -50,7 +50,10 @@
             {% for friend in profile.get_friends%}
                 <li><a href="{% url 'show_profile' friend.id %}">{{friend.first_name}}</a></li>
             {%endfor%}
+        {%else%}
+            <p>{{profile.first_name}} doesn't have any friends yet</p>
         {%endif%}
+        <a href="{% url 'friend_suggestions' profile.pk%}">Friend Suggestions</a>
     </div>
     
 

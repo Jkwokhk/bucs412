@@ -36,6 +36,21 @@ class Profile(models.Model):
 
         friends = [friend.profile2 for friend in profile1_friends] + [friend.profile1 for friend in profile2_friends]
         return friends
+    
+    def get_friend_suggestions(self):
+        # return list of possible friends for Profile
+        friends = self.get_friends()
+        return Profile.objects.exclude(id=self.id).exclude(id_in=[friend.id for friend in friends])
+    
+    
+    def add_friend(self, other):
+        if self == other:
+            return "Invalid: Can't add yourself as friend"
+        if Friend.objects.filter((models.Q(profile1=self, profile2=other))|models.Q(profile1=other, profile2=self)).exists():
+            return "Existing friendship"
+        Friend.objects.create(profile1=self, profile2=other, timestamp=timezone.now())
+        return f"Added {other.first_name} {other.last_name}"
+
 
 class StatusMessage(models.Model):
     '''Encapsulate the idea of a status message in profile'''
