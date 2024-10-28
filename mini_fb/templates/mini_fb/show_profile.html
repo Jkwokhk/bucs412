@@ -44,6 +44,14 @@
         {%endfor%}
         
     </div>
+    <div>
+        <h2>{{profile.first_name}}'s Friends</h2>
+        {% if profile.get_friends%}
+            {% for friend in profile.get_friends%}
+                <li><a href="{% url 'show_profile' friend.id %}">{{friend.first_name}}</a></li>
+            {%endfor%}
+        {%endif%}
+    </div>
     
 
 </main>
