@@ -14,20 +14,49 @@
             <strong>  {{profile.city}}</strong> 
             <br>
             <br>
-            <div class="main"><a href="{% url 'news_feed' profile.pk %}">News Feed</a></div>
+            <div class="main"><a href="{% url 'news_feed' profile.pk %}">News Feed</a> <br>
+            <a href="{% url 'update_profile' profile.pk%}" style="text-decoration: underline;">Update Profile</a>
+            <a href="{% url 'create_status' profile.pk %}" style="text-decoration: underline;">Add Status Message</a>
+        </div>
             
         </div>
         
     </profile>
-    
-    <div>
-        <a href="{% url 'update_profile' profile.pk%}" style="text-decoration: underline;">Update Profile</a>
-        <a href="{% url 'create_status' profile.pk %}" style="text-decoration: underline;">Add Status Message</a>
 
-        <h2>{{profile.first_name}} Status:</h2>
+</main>
+<main class="grid-container">
+    <!-- friends -->
+    <div>
+        <h2>{{profile.first_name}}'s Friends</h2>
+        {% if profile.get_friends%}
+            <ul style="display: flex;">
+            {% for friend in profile.get_friends%}
+            <div class="crop">
+                <div class="main"><li><a href="{% url 'show_profile' friend.id %}" >{{friend.first_name}}</a></li></div>
+                
+                <img src="{{friend.image_file.url}}" alt="{{friend.image_file.url}}" >
+            </div>
+            {%endfor%}
+        {%else%}
+            <p>{{profile.first_name}} doesn't have any friends yet</p>
+        </ul>
+        {%endif%}
+        
+        
+        
+    </div>
+    
+</main>
+
+
+<main class="grid-container">
+    <div>
+        
+
+        <h2>{{profile.first_name}}'s' Status:</h2>
         
         {% for s in profile.get_status_messages %}
-        <ul>
+        <ul style="display: flex;">
             <li>
         <profile>
             <div>
@@ -52,19 +81,10 @@
         {%endfor%}
         
     </div>
-    <div>
-        <h2>{{profile.first_name}}'s Friends</h2>
-        {% if profile.get_friends%}
-            {% for friend in profile.get_friends%}
-                <li><a href="{% url 'show_profile' friend.id %}">{{friend.first_name}}</a></li>
-            {%endfor%}
-        {%else%}
-            <p>{{profile.first_name}} doesn't have any friends yet</p>
-        {%endif%}
-        <a href="{% url 'friend_suggestions' profile.pk%}">Friend Suggestions</a>
-    </div>
+</main>
+    
     
 
-</main>
+
 
 {% endblock %}

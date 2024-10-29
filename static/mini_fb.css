@@ -31,7 +31,6 @@ h1, h2, h3, h4, h5, h6 {
 strong {
     font-family:Verdana, Geneva, Tahoma, sans-serif;
     color: #150484;
-    background-color: #ffffff;
 }
 
 p {
@@ -69,6 +68,8 @@ main {
     margin: 20px auto;
     
 }
+
+
 
 
 .grid-container {
