@@ -31,16 +31,14 @@ class Profile(models.Model):
     
     def get_friends(self):
         # return list of friend's profiles
-        profile1_friends = Friend.objects.filter(profile1 =self)
-        profile2_friends = Friend.objects.filter(profile2=self)
-
-        friends = [friend.profile2 for friend in profile1_friends] + [friend.profile1 for friend in profile2_friends]
-        return friends
+        relationships = Friend.objects.filter(models.Q(profile1=self) | models.Q(profile2=self))
+        friends = [friend.profile2 if friend.profile1 == self else friend.profile1 for friend in relationships]
+        return friends 
     
     def get_friend_suggestions(self):
         # return list of possible friends for Profile
         friends = self.get_friends()
-        return Profile.objects.exclude(id=self.id).exclude(id_in=[friend.id for friend in friends])
+        return Profile.objects.exclude(id=self.id).exclude(id__in=[friend.id for friend in friends])
     
     
     def add_friend(self, other):
@@ -50,6 +48,23 @@ class Profile(models.Model):
             return "Existing friendship"
         Friend.objects.create(profile1=self, profile2=other, timestamp=timezone.now())
         return f"Added {other.first_name} {other.last_name}"
+    
+    def get_news_feed(self):
+        '''returns list of statusmessages'''
+        friends = self.get_friends()
+        status = list(self.get_status_messages())
+        for friend in friends:
+            # get status message from each friend
+            status.extend(friend.get_status_messages())
+        # sort the news feed
+        for i in range(len(status)):
+            for j in range(0, len(status) -i -1):
+                if status[j].timestamp < status[j+1].timestamp:
+                    # swap
+                    status[j],status[j+1] = status[j+1], status[j]
+
+        return status
+
 
 
 class StatusMessage(models.Model):

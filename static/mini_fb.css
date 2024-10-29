@@ -7,18 +7,21 @@ body {
     
 }
 
-a:link,  a:visited {
+.main a {
+    color: #ffffff;
     text-decoration: none;
-    color: #150484;
-    /* padding: 14px 25px; */
-    /* text-align: center; */
-    text-decoration: none;
+    background-color: #150484;
     display: inline-block;
+    border: 4px;
+    padding: 4px;
+    margin : 1px;
+    border-radius: 8px;
 }
 
 ul, li {
     padding: 0px;
     list-style-type: none;
+    
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -28,6 +31,7 @@ h1, h2, h3, h4, h5, h6 {
 strong {
     font-family:Verdana, Geneva, Tahoma, sans-serif;
     color: #150484;
+    background-color: #ffffff;
 }
 
 p {
@@ -37,10 +41,11 @@ p {
 header {
     background-color: #fff;
     /* max-width: 900px; */
+    border:#fff 4px;
+    border-radius: 4px;
     gap: 25px;
     margin: 20px auto;
     align-self: center;
-    border-bottom: 1px solid #bbb;
     position: sticky;
     top: 0;
     z-index: 999;
@@ -65,6 +70,7 @@ main {
     
 }
 
+
 .grid-container {
     background: #fff;
     gap: 25px;
@@ -82,6 +88,15 @@ main {
     grid-template-columns: 1fr;   
 }
 
+.news-feed {
+    background: #fff;
+    gap: 25px;
+    border-top: 10px;
+    margin: 20px auto;
+    display: grid;
+    grid-template-columns: 1fr;   
+}
+
 nav {
     border-top: 1px solid #150484;
     align-items: top;
@@ -89,8 +104,9 @@ nav {
 }
 
 nav li {
-    display: inline;
+    display: inline-block;
 }
+
 
 
 profile.featured {
@@ -108,21 +124,59 @@ profile img, profile.featured img {
     width: 100%;
     max-width: 300px;
     border: 4px solid #fff;
-
+    border-radius: 8px;
 }
 
-div.status {
+/* formatting for status messages */
+status_message {
     color:#150484; 
     width: 95%;
-    padding: 2px;
+    padding: 10px;
+    margin: 0px;
     text-align: justify;
 }
-/* div.status img{
-    width:auto;
-    height:auto;
-    border: 3px;
-    margin: 5px;
-} */
+
+status_message img {
+    max-width: 50%;
+    overflow: hidden;
+    border: 4px solid #fff;
+    background-color: #fff;
+    border-radius: 8px;
+    border: 10;
+}
+
+/* formatting for newsfeed_items */
+newsfeed_item {
+    color:#150484; 
+    background-color: #fff;
+    border-bottom: #150484 solid 1px;
+    width: 80%;
+    padding-bottom: 50px;
+    margin: 10px;
+    text-align: justify;
+    vertical-align: top;
+}
+
+.newsfeed_profile_img img {
+    width: 60px; 
+    height: 60px;
+    overflow: hidden;
+    border: 4px solid #fff;
+    /* background-color: #fff; */
+    border-radius: 30px;
+    border: 10;
+    display: inline-block;
+    vertical-align: top;
+    box-sizing: border-box;
+    /* margin: 0px 0 0 25px; */
+    
+}
+
+.newsfeed_large_image img {
+    max-width: 50%;
+    /* max-height:; */
+    border: 4px solid #fff;
+}
 
 /* This code will help crop an image to display a small size on the all profiles page */
 .crop {
@@ -139,6 +193,64 @@ div.status {
     margin: 0px 0 0 -50px;
     border: 0;
 }
+
+/* formatting form inputs */
+input {
+    padding:5px; 
+    border:2px solid #ccc; 
+    -webkit-border-radius: 5px;
+    border-radius: 5px;
+}
+
+input[type=file] {
+    padding:5px; 
+    border:2px solid #ccc; 
+    -webkit-border-radius: 5px;
+    border-radius: 5px;
+}
+
+input[type=text]:focus {
+    border-color:#333;
+}
+
+/* 
+input[type=url] {
+    padding:5px; 
+    border:2px solid #ccc; 
+    -webkit-border-radius: 5px;
+    border-radius: 5px;
+}
+
+
+input[type=password] {
+    padding:5px; 
+    border:2px solid #ccc; 
+    -webkit-border-radius: 5px;
+    border-radius: 5px;
+}
+
+input[type=email] {
+    padding:5px; 
+    border:2px solid #ccc; 
+    -webkit-border-radius: 5px;
+    border-radius: 5px;
+}
+
+input[type=text]:focus {
+    border-color:#333;
+} */
+
+input[type=submit] {
+
+    color: #ffffff;
+    text-decoration: none;
+    background-color: #150484;
+    display: inline-block;
+    border: 4px;
+    padding: 4px;
+    border-radius: 8px;
+}
+
 
 /* responsive styles: adapt to smaller screen sizes */
 @media screen and (max-width: 950px) {
@@ -203,4 +315,3 @@ div.status {
     }
 
 }
-
