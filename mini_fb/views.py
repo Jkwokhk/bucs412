@@ -27,7 +27,7 @@ class ShowAllProfilesView(ListView):
         '''show /debug logged in user'''
         print(f'Logged in user: request.user={request.user}')
         print(f'Logged in user: request.user.is_authenticated={request.user.is_authenticated}')
-        
+
         return super().dispatch(request, *args, **kwargs)
 
 class ShowProfilePageView(DetailView):
@@ -39,10 +39,10 @@ class ShowProfilePageView(DetailView):
     '''pick profile '''
     def get_object(self):
         '''Return one profile object '''
-        pk = self.kwargs.get('pk')
-        print("pk is")
-        print(pk)
-        return Profile.objects.get(pk=pk)
+        return Profile.objects.get(user=self.request.user)
+    def get_login_url(self):
+        '''return URL required for login'''
+        return reverse('mini_fb/login')
     
 class CreateProfileForm(CreateView):
     '''a view to create a new profile and save it to database'''
@@ -118,10 +118,15 @@ class UpdateProfileView(LoginRequiredMixin, UpdateView):
     form_class = UpdateProfileForm
     template_name = 'mini_fb/update_profile_form.html'
 
+    def get_object(self):
+        '''Return one profile object '''
+        return Profile.objects.get(user=self.request.user)
+
     def get_success_url(self) -> str:
         '''return URL to redirect after success'''
 
         return reverse('show_profile', kwargs={'pk': self.kwargs['pk']})
+    
 
 
 class DeleteStatusMessageView(LoginRequiredMixin, DeleteView):
@@ -129,6 +134,10 @@ class DeleteStatusMessageView(LoginRequiredMixin, DeleteView):
     model = StatusMessage
     template_name = 'mini_fb/delete_status_form.html'
     context_object_name = 'status_message'
+
+    def get_object(self):
+        '''Return one profile object '''
+        return Profile.objects.get(user=self.request.user)
 
     def get_success_url(self) -> str:
         '''return URL to redirect after success'''
@@ -140,6 +149,9 @@ class UpdateStatusMessageView(LoginRequiredMixin, UpdateView):
     template_name = 'mini_fb/update_status_form.html'
     context_object_name = 'status_message'
     fields = ['message']
+    def get_object(self):
+        '''Return one profile object '''
+        return Profile.objects.get(user=self.request.user)
 
     def get_success_url(self) -> str:
         '''return URL to redirect after success'''
@@ -148,6 +160,11 @@ class UpdateStatusMessageView(LoginRequiredMixin, UpdateView):
     
 class CreateFriendView(LoginRequiredMixin, View):
     '''view for creating friend relationship'''
+
+    def get_object(self):
+        '''Return one profile object '''
+        return Profile.objects.get(user=self.request.user)
+
     def dispatch(self, request: HttpRequest, *args: Any, **kwargs: Any) -> HttpResponse:
         profile = Profile.objects.get(pk=self.kwargs['pk'])
         other = Profile.objects.get(pk=self.kwargs['other_pk'])
@@ -159,6 +176,11 @@ class ShowFriendSuggestionsView(DetailView):
     '''view to show friend suggestions'''
     model = Profile
     template_name = 'mini_fb/friend_suggestions.html'
+
+    def get_object(self):
+        '''Return one profile object '''
+        return Profile.objects.get(user=self.request.user)
+    
     def get_context_data(self, **kwargs: Any) -> dict[str, Any]:
         context = super().get_context_data(**kwargs)
         profile = self.get_object()
@@ -169,3 +191,7 @@ class ShowNewsFeedView(LoginRequiredMixin, DetailView):
     model = Profile
     template_name = 'mini_fb/news_feed.html'
     context_object_name = 'profile'
+
+    def get_object(self):
+        '''Return one profile object '''
+        return Profile.objects.get(user=self.request.user)
