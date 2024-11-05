@@ -16,6 +16,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 
 
 
+
 # class-based view
 class ShowAllProfilesView(ListView):
     '''the view to show all profiles'''
@@ -39,7 +40,11 @@ class ShowProfilePageView(DetailView):
     '''pick profile '''
     def get_object(self):
         '''Return one profile object '''
-        return Profile.objects.get(user=self.request.user)
+        if 'pk' in self.kwargs:
+            return Profile.objects.get(pk=self.kwargs['pk'])
+        else:
+            return Profile.objects.get(user=self.request.user)
+        
     def get_login_url(self):
         '''return URL required for login'''
         return reverse('mini_fb/login')
@@ -76,7 +81,7 @@ class CreateProfileForm(CreateView):
     def get_success_url(self):
         '''return URL to redirect after submit successfully'''
         
-        return reverse('show_profile', kwargs={'pk': self.object.pk})
+        return reverse('show_profile')
     
 
 class CreateStatusMessageView(LoginRequiredMixin, CreateView):
@@ -109,7 +114,7 @@ class CreateStatusMessageView(LoginRequiredMixin, CreateView):
     
     def get_success_url(self) -> str:
         '''return URL to redirect after success'''
-        return reverse('show_profile', kwargs={'pk': self.kwargs['pk']})
+        return reverse('show_profile')
     
 
 class UpdateProfileView(LoginRequiredMixin, UpdateView):
@@ -125,7 +130,7 @@ class UpdateProfileView(LoginRequiredMixin, UpdateView):
     def get_success_url(self) -> str:
         '''return URL to redirect after success'''
 
-        return reverse('show_profile', kwargs={'pk': self.kwargs['pk']})
+        return reverse('show_profile')
     
 
 
@@ -135,13 +140,11 @@ class DeleteStatusMessageView(LoginRequiredMixin, DeleteView):
     template_name = 'mini_fb/delete_status_form.html'
     context_object_name = 'status_message'
 
-    def get_object(self):
-        '''Return one profile object '''
-        return Profile.objects.get(user=self.request.user)
+    
 
     def get_success_url(self) -> str:
         '''return URL to redirect after success'''
-        return reverse('show_profile', kwargs={'pk': self.object.profile.pk})
+        return reverse('show_profile')
 
 class UpdateStatusMessageView(LoginRequiredMixin, UpdateView):
     '''form to update status'''
@@ -149,21 +152,15 @@ class UpdateStatusMessageView(LoginRequiredMixin, UpdateView):
     template_name = 'mini_fb/update_status_form.html'
     context_object_name = 'status_message'
     fields = ['message']
-    def get_object(self):
-        '''Return one profile object '''
-        return Profile.objects.get(user=self.request.user)
 
     def get_success_url(self) -> str:
         '''return URL to redirect after success'''
         #  returns to profile object
-        return reverse('show_profile', kwargs={'pk': self.object.profile.pk})
+        return reverse('show_profile')
     
 class CreateFriendView(LoginRequiredMixin, View):
     '''view for creating friend relationship'''
 
-    def get_object(self):
-        '''Return one profile object '''
-        return Profile.objects.get(user=self.request.user)
 
     def dispatch(self, request: HttpRequest, *args: Any, **kwargs: Any) -> HttpResponse:
         profile = Profile.objects.get(pk=self.kwargs['pk'])

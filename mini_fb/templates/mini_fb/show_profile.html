@@ -15,10 +15,10 @@
             <br>
             <br>
             {% if user.is_authenticated and user == profile.user %}
-            <div class="main"><a href="{% url 'news_feed' profile.pk %}">News Feed</a> <br>
-            <a href="{% url 'update_profile' profile.pk%}" style="text-decoration: underline;">Update Profile</a>
-            <a href="{% url 'create_status' profile.pk %}" style="text-decoration: underline;">Add Status Message</a>
-            <a href="{% url 'friend_suggestions' profile.pk %}" style="text-decoration: underline;">Friend Suggestions</a>
+            <div class="main"><a href="{% url 'news_feed'  %}">News Feed</a> <br>
+            <a href="{% url 'update_profile'%}" style="text-decoration: underline;">Update Profile</a>
+            <a href="{% url 'create_status'  %}" style="text-decoration: underline;">Add Status Message</a>
+            <a href="{% url 'friend_suggestions'  %}" style="text-decoration: underline;">Friend Suggestions</a>
             {% else %}
             <p>You are not logged in as this user</p>
             {% endif %}
@@ -37,7 +37,7 @@
             <ul style="display: flex;">
             {% for friend in profile.get_friends%}
             <div class="crop">
-                <div class="main"><li><a href="{% url 'show_profile' friend.id %}" >{{friend.first_name}}</a></li></div>
+                <div class="main"><li><a href="{% url 'show_profile_with_pk' friend.id %}" >{{friend.first_name}}</a></li></div>
                 
                 <img src="{{friend.image_url}}" alt="{{friend.image_url}}" >
             </div>
