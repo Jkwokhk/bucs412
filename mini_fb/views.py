@@ -11,6 +11,10 @@ from .forms import *
 from .models import *
 import random
 from django.views import View
+from django.contrib.auth.forms import UserCreationForm 
+from django.contrib.auth.mixins import LoginRequiredMixin
+
+
 
 # class-based view
 class ShowAllProfilesView(ListView):
@@ -18,6 +22,13 @@ class ShowAllProfilesView(ListView):
     model = Profile
     template_name = 'mini_fb/show_all_profiles.html'
     context_object_name = 'profiles'
+
+    def dispatch(self, request: HttpRequest, *args: Any, **kwargs: Any) -> HttpResponse:
+        '''show /debug logged in user'''
+        print(f'Logged in user: request.user={request.user}')
+        print(f'Logged in user: request.user.is_authenticated={request.user.is_authenticated}')
+        
+        return super().dispatch(request, *args, **kwargs)
 
 class ShowProfilePageView(DetailView):
     '''Show detailed profile'''
@@ -68,7 +79,7 @@ class CreateProfileForm(CreateView):
         return reverse('show_profile', kwargs={'pk': self.object.pk})
     
 
-class CreateStatusMessageView(CreateView):
+class CreateStatusMessageView(LoginRequiredMixin, CreateView):
     '''a form to create status for profile'''
     form_class = CreateStatusMessageForm
     template_name = 'mini_fb/create_status_form.html'
@@ -101,7 +112,7 @@ class CreateStatusMessageView(CreateView):
         return reverse('show_profile', kwargs={'pk': self.kwargs['pk']})
     
 
-class UpdateProfileView(UpdateView):
+class UpdateProfileView(LoginRequiredMixin, UpdateView):
     '''form to update profile'''
     model = Profile
     form_class = UpdateProfileForm
@@ -113,7 +124,7 @@ class UpdateProfileView(UpdateView):
         return reverse('show_profile', kwargs={'pk': self.kwargs['pk']})
 
 
-class DeleteStatusMessageView(DeleteView):
+class DeleteStatusMessageView(LoginRequiredMixin, DeleteView):
     '''form to delete status'''
     model = StatusMessage
     template_name = 'mini_fb/delete_status_form.html'
@@ -123,7 +134,7 @@ class DeleteStatusMessageView(DeleteView):
         '''return URL to redirect after success'''
         return reverse('show_profile', kwargs={'pk': self.object.profile.pk})
 
-class UpdateStatusMessageView(UpdateView):
+class UpdateStatusMessageView(LoginRequiredMixin, UpdateView):
     '''form to update status'''
     model = StatusMessage
     template_name = 'mini_fb/update_status_form.html'
@@ -135,7 +146,7 @@ class UpdateStatusMessageView(UpdateView):
         #  returns to profile object
         return reverse('show_profile', kwargs={'pk': self.object.profile.pk})
     
-class CreateFriendView(View):
+class CreateFriendView(LoginRequiredMixin, View):
     '''view for creating friend relationship'''
     def dispatch(self, request: HttpRequest, *args: Any, **kwargs: Any) -> HttpResponse:
         profile = Profile.objects.get(pk=self.kwargs['pk'])
@@ -154,7 +165,7 @@ class ShowFriendSuggestionsView(DetailView):
         context['friend_suggestions'] = profile.get_friend_suggestions()
         return context
     
-class ShowNewsFeedView(DetailView):
+class ShowNewsFeedView(LoginRequiredMixin, DetailView):
     model = Profile
     template_name = 'mini_fb/news_feed.html'
     context_object_name = 'profile'

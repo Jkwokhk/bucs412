@@ -1,7 +1,7 @@
 # blog/models.py
 # Define the data obects for our application
 from django.db import models
-
+from django.contrib.auth.models import User
 
 
 # When do you need to use the makemigration command!!!!! QUIZ

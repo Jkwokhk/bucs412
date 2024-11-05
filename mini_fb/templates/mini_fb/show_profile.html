@@ -6,17 +6,22 @@
 <main class="grid-container">
     <profile class="featured">
 
-        {% if profile.image_file.url %}
-        <img src="{{profile.image_file.url}}" alt="{{profile.image_file.url}}">
+        {% if profile.image_url %}
+        <img src="{{profile.image_url}}" alt="{{profile.image_url}}">
         {% endif %}
         <div>
             <h2>{{profile.first_name}} {{profile.last_name}}</h2>
             <strong>  {{profile.city}}</strong> 
             <br>
             <br>
+            {% if user.is_authenticated and user == profile.user %}
             <div class="main"><a href="{% url 'news_feed' profile.pk %}">News Feed</a> <br>
             <a href="{% url 'update_profile' profile.pk%}" style="text-decoration: underline;">Update Profile</a>
             <a href="{% url 'create_status' profile.pk %}" style="text-decoration: underline;">Add Status Message</a>
+            <a href="{% url 'friend_suggestions' profile.pk %}" style="text-decoration: underline;">Friend Suggestions</a>
+            {% else %}
+            <p>You are not logged in as this user</p>
+            {% endif %}
         </div>
             
         </div>
@@ -34,7 +39,7 @@
             <div class="crop">
                 <div class="main"><li><a href="{% url 'show_profile' friend.id %}" >{{friend.first_name}}</a></li></div>
                 
-                <img src="{{friend.image_file.url}}" alt="{{friend.image_file.url}}" >
+                <img src="{{friend.image_url}}" alt="{{friend.image_url}}" >
             </div>
             {%endfor%}
         {%else%}
@@ -63,8 +68,10 @@
                 
                 
                 <div>
+                {% if user.is_authenticated and user == profile.user %}
                 <a href="{% url 'delete_status' s.pk %}" style="text-decoration: underline;">Delete</a>
                 <a href="{% url 'update_status' s.pk %}" style="text-decoration: underline;">Update</a>
+                {%endif%}
                 </div>
                 {% for img in s.get_images %}
                     <div class="crop">

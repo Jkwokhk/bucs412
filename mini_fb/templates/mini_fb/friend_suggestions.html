@@ -8,8 +8,8 @@
     <li>
         <profile class="featured">
 
-            {% if friend.image_file.url %}
-            <img src="{{friend.image_file.url}}" alt="{{friend.image_file.url}}">
+            {% if friend.image_url %}
+            <img src="{{friend.image_url}}" alt="{{friend.image_url}}">
             {% endif %}
             <div>
                 <h2>{{friend.first_name}} {{friend.last_name}}</h2>

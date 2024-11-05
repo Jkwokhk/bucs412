@@ -1,7 +1,7 @@
 # blog/views.py
 # define the views for the blog app
 from django.shortcuts import render
-
+from django.contrib.auth.forms import UserCreationForm
 # Create your views here.
 from django.views.generic import ListView, DetailView
 from .models import *
@@ -30,3 +30,4 @@ class ArticleView(DetailView):
     model = Article
     template_name = 'blog/article.html'
     context_object_name = 'article'
+
