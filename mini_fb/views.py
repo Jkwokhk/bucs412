@@ -13,6 +13,8 @@ import random
 from django.views import View
 from django.contrib.auth.forms import UserCreationForm 
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth import login
+from django.contrib.auth.models import User
 
 
 
@@ -41,42 +43,40 @@ class ShowProfilePageView(DetailView):
     def get_object(self):
         '''Return one profile object '''
         if 'pk' in self.kwargs:
+            print('other profiles')
             return Profile.objects.get(pk=self.kwargs['pk'])
         else:
             return Profile.objects.get(user=self.request.user)
         
-    def get_login_url(self):
-        '''return URL required for login'''
-        return reverse('mini_fb/login')
+   
     
 class CreateProfileForm(CreateView):
     '''a view to create a new profile and save it to database'''
     form_class = CreateProfileForm
     template_name = "mini_fb/create_profile_form.html"
 
-    # def get_context_data(self, **kwargs: Any) -> dict[str, Any]:
-    #     '''
-    #     Build the dict of context data for this view
-    #     '''
-    #     # superclass context data
-    #     context = super().get_context_data(**kwargs)
-    #     # find pk from URL
-    #     pk = self.kwargs['pk']
-    #     # find corresponding profile
-    #     profile = Profile.objects.get(pk=pk)
-    #     # add profile to context data
-    #     context['profile'] = profile
-
-
-    #     return context
+    def get_context_data(self, **kwargs: Any) -> dict[str, Any]:
+        context = super().get_context_data(**kwargs)
+        context['new_user_form'] = UserCreationForm()
+        return context
 
     def form_valid(self, form):
         '''
         Handle the form submission
         '''
         # print(form.cleaned_data)
+        new_user_form = UserCreationForm(self.request.POST)
+        if new_user_form.is_valid():
+            user = new_user_form.save()
+            form.instance.user = user
+            return super().form_valid(form)
+
+            
+        else:
+            return self.form_invalid(form)
+
         
-        return super().form_valid(form)
+        
     
     def get_success_url(self):
         '''return URL to redirect after submit successfully'''
@@ -91,13 +91,13 @@ class CreateStatusMessageView(LoginRequiredMixin, CreateView):
     
     def get_context_data(self, **kwargs: Any) -> dict[str, Any]:
         context = super().get_context_data(**kwargs)
-        profile = Profile.objects.get(pk=self.kwargs['pk'])
+        profile = Profile.objects.get(user=self.request.user)
         context['profile'] = profile
         return context
     
     def form_valid(self, form):
         '''handle form submission'''
-        profile = Profile.objects.get(pk=self.kwargs['pk'])
+        profile = Profile.objects.get(user=self.request.user)
         print(self.kwargs)
         form.instance.profile = profile
         # save the status message to database
@@ -163,11 +163,11 @@ class CreateFriendView(LoginRequiredMixin, View):
 
 
     def dispatch(self, request: HttpRequest, *args: Any, **kwargs: Any) -> HttpResponse:
-        profile = Profile.objects.get(pk=self.kwargs['pk'])
+        profile = Profile.objects.get(user=self.request.user)
         other = Profile.objects.get(pk=self.kwargs['other_pk'])
         friendship = profile.add_friend(other)
 
-        return redirect('show_profile', pk=profile.pk)
+        return redirect('show_profile')
     
 class ShowFriendSuggestionsView(DetailView):
     '''view to show friend suggestions'''
@@ -192,3 +192,4 @@ class ShowNewsFeedView(LoginRequiredMixin, DetailView):
     def get_object(self):
         '''Return one profile object '''
         return Profile.objects.get(user=self.request.user)
+    

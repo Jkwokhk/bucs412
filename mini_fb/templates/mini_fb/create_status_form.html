@@ -3,7 +3,7 @@
 {% block content %}
 <h2>Post a status message</h2>
 <!-- enctype to indicate this form might include file submission data -->
-<form method="POST" action="{% url 'create_status' profile.pk %}" enctype="multipart/form-data">
+<form method="POST" action="{% url 'create_status' %}" enctype="multipart/form-data">
 {% csrf_token %}
 <table>
     

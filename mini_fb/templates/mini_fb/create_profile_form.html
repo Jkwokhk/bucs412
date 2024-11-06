@@ -1,17 +1,26 @@
 <!-- mini_fb/create_profile_form.html -->
 {% extends 'mini_fb/base.html' %}
 {% block content %}
-<h2>Add a profile</h2>
+<h2>Register a profile</h2>
 <form method="POST">
 {% csrf_token %}
 <table>
     
+    {% for field in new_user_form %}
+    <tr>
+        <td>{{field.label_tag}}</td>
+        <td>{{field}}</td>
+    </tr>
+    {% endfor %}
+
     {% for field in form %}
     <tr>
         <td>{{field.label_tag}}</td>
         <td>{{field}}</td>
     </tr>
     {% endfor %}
+
+    
 
     <tr>
         <td>
