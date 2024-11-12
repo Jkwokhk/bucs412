@@ -18,12 +18,12 @@ class Voter(models.Model):
     date_of_birth = models.DateField()
     date_of_registration = models.DateField()
     party_affiliation = models.CharField(max_length=1)
-    precinct_number = models.IntegerField()
-    v20state = models.BooleanField(default=False)
-    v21town = models.BooleanField(default=False)
-    v21primary = models.BooleanField(default=False)
-    v22general = models.BooleanField(default=False)
-    v23town = models.BooleanField(default=False)
+    precinct_number = models.CharField(max_length=10)
+    v20state = models.BooleanField()
+    v21town = models.BooleanField()
+    v21primary = models.BooleanField()
+    v22general = models.BooleanField()
+    v23town = models.BooleanField()
     voter_score = models.IntegerField()
 
     def __str__(self):
@@ -31,9 +31,10 @@ class Voter(models.Model):
 
 def load_data():
     '''function to load data records from csv file into django model instances'''
+    Voter.objects.all().delete()
     filename = '/Users/jasonk/Desktop/newton_voters.csv'
     f = open(filename)
-    f.readline #discard headers
+    f.readline() #discard headers
     for row in f:
         # line = f.readline().strip()
         fields = row.split(',')
@@ -46,23 +47,23 @@ def load_data():
                 first_name = fields[2],
                 street_number = fields[3],
                 street_name = fields[4],
-                apartment_number = fields[5],
+                apartment_number = fields[5] if fields[5].strip() else None,
                 zip_code = fields[6],
                 date_of_birth = fields[7],
                 date_of_registration = fields[8],
                 party_affiliation = fields[9],
                 precinct_number = fields[10],
-                v20state = fields[11],
-                v21town = fields[12],
-                v21primary = fields[13],
-                v22general = fields[14],
-                v23town = fields[15],
+                v20state = fields[11].strip().lower() == 'true',
+                v21town = fields[12].strip().lower() == 'true',
+                v21primary = fields[13].strip().lower() == 'true',
+                v22general = fields[14].strip().lower() == 'true',
+                v23town = fields[15].strip().lower() == 'true',
                 voter_score = fields[16],
             )
             voter.save() 
             # commit to database
-            # print(f' Created result: {voter}')
+            print(f' Created result: {voter}')
         except:
-            # print(f"Skipped {fields}")
+            print(f"Skipped {fields}")
     print(f'Done. Created all Voters')
     

@@ -1,0 +1,39 @@
+<!-- voter_analytics/templates/voter_analytics/voter_detail.html -->
+{% extends 'voter_analytics/base.html' %}
+{% block content %}
+
+<div class="container">
+    <div class="row">
+        <table>
+        <tr>
+            <th>Name</th>
+            <td>{{voter.first_name}} {{voter.last_name}}</td>
+        </tr>
+        <tr>
+            <th>Address</th>
+            <td><a href="https://www.google.com/maps/search/?api=1&query={{ voter.street_number }}+{{ voter.street_name }},+Newton,+MA+{{ voter.zip_code }}"> {{ voter.street_number }} {{ voter.street_name }},Newton, MA, {{ voter.zip_code }}</a></td>
+        </tr>
+        <tr>
+            <th>Date of Birth</th>
+            <td>{{voter.date_of_birth}}</td>
+        </tr>
+        <tr>
+            <th>Date of Registration</th>
+            <td>{{voter.date_of_registration}}</td>
+        </tr>
+        <tr>
+            <th>Party Affiliation</th>
+            <td>{{voter.party_affiliation}}</td>
+        </tr>
+        <tr>
+            <th>Voter Score</th>
+            <td>{{voter.voter_score}}</td>
+        </tr>
+    </table>
+    </div>
+
+
+</div>
+
+
+{% endblock %}

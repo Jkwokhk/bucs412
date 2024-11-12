@@ -5,4 +5,7 @@ from . import views
 from .views import *
 from django.contrib.auth import views as auth_views
 
-urlpatterns = []
+urlpatterns = [
+    path('', views.VoterListView.as_view(), name='voters'),
+    path('voter/<int:pk>/', views.VoterDetailView.as_view(), name='voter'),
+]
