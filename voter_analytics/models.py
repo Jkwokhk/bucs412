@@ -1,0 +1,68 @@
+# voter_analytics/models.py
+from django.db import models
+import csv
+from datetime import datetime
+from django.conf import settings
+from django.db import models
+
+# Create your models here.
+class Voter(models.Model):
+    '''encapsualtes an idea of a Voter'''
+    voter_id = models.CharField(max_length= 12)
+    last_name = models.CharField(max_length=100)
+    first_name = models.CharField(max_length=100)
+    street_number = models.CharField(max_length=10, blank=True, null=True)
+    street_name = models.CharField(max_length=100)
+    apartment_number = models.CharField(max_length=10, blank=True, null=True)
+    zip_code = models.CharField(max_length=10)
+    date_of_birth = models.DateField()
+    date_of_registration = models.DateField()
+    party_affiliation = models.CharField(max_length=1)
+    precinct_number = models.IntegerField()
+    v20state = models.BooleanField(default=False)
+    v21town = models.BooleanField(default=False)
+    v21primary = models.BooleanField(default=False)
+    v22general = models.BooleanField(default=False)
+    v23town = models.BooleanField(default=False)
+    voter_score = models.IntegerField()
+
+    def __str__(self):
+        return f"{self.first_name} {self.last_name}"
+
+def load_data():
+    '''function to load data records from csv file into django model instances'''
+    filename = '/Users/jasonk/Desktop/newton_voters.csv'
+    f = open(filename)
+    f.readline #discard headers
+    for row in f:
+        # line = f.readline().strip()
+        fields = row.split(',')
+        # show which value in each field
+        try:
+        # create instance of Result object with this record
+            voter = Voter(
+                voter_id = fields[0],
+                last_name = fields[1],
+                first_name = fields[2],
+                street_number = fields[3],
+                street_name = fields[4],
+                apartment_number = fields[5],
+                zip_code = fields[6],
+                date_of_birth = fields[7],
+                date_of_registration = fields[8],
+                party_affiliation = fields[9],
+                precinct_number = fields[10],
+                v20state = fields[11],
+                v21town = fields[12],
+                v21primary = fields[13],
+                v22general = fields[14],
+                v23town = fields[15],
+                voter_score = fields[16],
+            )
+            voter.save() 
+            # commit to database
+            # print(f' Created result: {voter}')
+        except:
+            # print(f"Skipped {fields}")
+    print(f'Done. Created all Voters')
+    
