@@ -1,0 +1,53 @@
+<!-- project/templates/project/base.html -->
+<!-- template with common HTML code that will be reused by other templates -->
+{% load static %}
+<html>
+    <head>
+        <title>Terrier Board Game Shop</title>
+        <link rel="stylesheet" href="{% static 'mini_fb.css' %}">
+    </head>
+    <body>
+        <nav>
+            <ul>
+                
+                
+            </ul>
+        </nav>
+        <header><h1>Terrier Board Game Shop</h1></header>
+        <div class="main">
+        <nav>
+            <ul>
+                <li><a href="{% url 'show_all_board_games' %}">All Games</a></li>
+                <li><a href="{% url 'create_board_game' %}">Add Board Game</a></li>
+                <li><a href="{% url 'create_profile' %}">Create Profile</a></li>
+                
+            </ul>
+
+            <ul>
+                <li>
+                    {% if request.user.is_authenticated %}
+                    <a href="{% url 'show_profile' %}">My Profile</a>
+                    <a href="{% url 'logout' %}">Logout</a>
+                    {% else %}
+                    <a href="{% url 'login' %}">Login</a>
+                    {% endif %}
+                </li>
+            </ul>
+
+            <!-- Show who's logged in -->
+             <!-- {% if request.user.is_authenticated %}
+                Logged in user: {{request.user}}
+                {%else%}
+                Not logged in
+             {% endif %} -->
+            
+        </nav>
+        </div>
+        
+        {% block content %}
+        <!-- Fill in this section with specific page detail -->
+        {% endblock %}
+        <hr>
+      
+    </body>
+</html>

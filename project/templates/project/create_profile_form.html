@@ -1,0 +1,33 @@
+<!-- project/create_profile_form.html -->
+
+{% extends 'project/base.html'%}
+{% block content %}
+<h2>Create a New Profile</h2>
+<!-- Form to add a new profile -->
+<form method="POST">
+    {% csrf_token %}
+    <table>
+        <!-- User creation -->
+        {% for field in new_user_form %}
+        <tr>
+            <td>{{field.label_tag}}</td>
+            <td>{{field}}</td>
+        </tr>
+        {% endfor %}
+        <!-- End User Creation -->
+
+        <!-- Profile Creation -->
+        {% for field in form %}
+        <tr>
+            <td>{{field.label_tag}}</td>
+            <td>{{field}}</td>
+        </tr>
+        {% endfor %}
+        <!-- End Profile Creation -->
+    </table>
+    <tr>
+        <td><input type="submit" name="Add Profile" value="Add Profile"></td>
+    </tr>
+</form>
+<!-- End Form to add a new profile -->
+{% endblock %}

@@ -38,7 +38,7 @@ class ShowProfilePageView(DetailView):
     model = Profile
     template_name = 'mini_fb/show_profile.html'
     context_object_name = 'profile'
-
+    
     '''pick profile '''
     def get_object(self):
         '''Return one profile object '''

@@ -1,0 +1,17 @@
+<!-- project/show_profile.html -->
+{% extends 'project/base.html'%}
+{% block content %}
+
+<main class="grid-container">
+    <profile class="featured">
+        <div>
+            <h2>{{customer.first_name}} {{customer.last_name}}</h2>
+            <p>{{customer.email}}</p>
+            <p>{{customer.address}}</p>
+        </div>
+    </profile>
+
+</main>
+
+
+{% endblock %}

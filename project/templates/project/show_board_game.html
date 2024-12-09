@@ -1,0 +1,42 @@
+<!-- project/templates/project/show_board_game.html -->
+
+
+ {% extends 'project/base.html' %}
+ {% block content %}
+
+<main class="grid-container">
+    <profile class="featured">
+        <!-- Show details of Board Game -->
+        {% if board_game.image_url %}
+        <img src="{{board_game.image_url}}" alt="{{board_game.image_url}}">
+        {% endif %}
+        <div>
+        <h2>{{board_game.title}}</h2>
+        <strong>Price: {{board_game.price}}</strong>
+        <p>Publisher: {{board_game.publisher}}</p>
+        <p>Released in: {{board_game.release_year}}</p>
+        <p>Genre: {{board_game.genre}}</p>
+        </div>
+         <!-- End details of Board Game -->
+    </profile>
+
+    <a href="{% url 'create_rating' board_game.pk %}">Rate this Product</a>
+</main>
+<main class="grid-container">
+    <!-- Show ratings -->
+    <ul>
+        {% for rating in board_game.get_ratings %}
+        <profile>
+            <div>
+                <p>{{rating.customer.first_name}} {{rating.customer.last_name}}</p>
+                <p>{{rating.comment}}</p>
+                <p>{{rating.rating}}</p>
+            </div>
+        </profile>
+        {% endfor %}
+    </ul>
+    <!-- End of ratings -->
+</main>
+
+
+ {% endblock %}

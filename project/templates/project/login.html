@@ -1,0 +1,11 @@
+<!-- project/login.html -->
+{% extends 'project/base.html' %}
+{% block content %}
+<h2>Login</h2>
+<form method="POST" action="{% url 'login' %}">
+    {% csrf_token %}
+    {{form}}
+    <input type="hidden" name="next" value="{% url 'show_all_board_games' %}">
+    <input type="submit" value="Login">
+</form>
+{% endblock %}

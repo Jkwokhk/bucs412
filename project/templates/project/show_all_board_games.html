@@ -1,0 +1,21 @@
+<!-- project/templates/project/show_all_board_games.html -->
+ <!-- displays a context variable called articles -->
+
+{% extends 'project/base.html' %}
+{% block content %}
+<main class="grid-container">
+    {% for game in board_games %}
+    <profile>
+        {% if game.image_url %}
+        <div class="crop">
+            <!-- Link to Board Game here -->
+             <a href="{% url 'show_board_game_with_pk' game.id %}">{{game.title}}</a>
+             <img src="{{game.image_url}}" alt="{{game.image_url}}">
+        </div>
+        {%endif%}
+    </profile>
+    {% endfor %}
+</main>
+
+
+{% endblock %}
