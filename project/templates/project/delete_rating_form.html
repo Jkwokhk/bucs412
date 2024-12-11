@@ -1,0 +1,18 @@
+<!-- project/delete_rating_form.html -->
+{% extends 'project/base.html'%}
+{% block content %}
+<h2>Delete this Rating?</h2>
+<p>{{rating.board_game.title}}: {{rating.comment}}</p>
+
+<!-- Form to delete a rating -->
+<form method="POST">
+    {% csrf_token %}
+  
+    <input type="submit" name="Confirm" value="Confirm">
+</form>
+<form method="GET" action="{% url 'show_profile' %}">
+    {% csrf_token %}
+    <input type="submit" name="Cancel" value="Cancel">
+</form>
+<!-- End Form to delete a rating -->
+{% endblock %}

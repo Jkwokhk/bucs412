@@ -2,6 +2,7 @@
 {% extends 'project/base.html'%}
 {% block content %}
 
+<!-- Show Customer Detail -->
 <main class="grid-container">
     <profile class="featured">
         <div>
@@ -9,9 +10,87 @@
             <p>{{customer.email}}</p>
             <p>{{customer.address}}</p>
         </div>
-    </profile>
 
+ 
+        <div class="main">
+            <!-- Show Cart Button -->
+            <a href="{% url 'show_cart' %}" class="button">
+                Show Cart
+            </a>
+            <br>
+
+            <!-- End Show Cart Button -->
+
+                <!-- Update Profile Button -->
+ 
+                <a href="{% url 'update_profile' %}" class="button">Update Profile</a>
+        
+                <!-- End Update Profile Button -->
+        </div>
+     
+          
+    
+    </profile>
+   
+
+    
+</main>
+<!-- End Show Customer Detail -->
+
+<!-- Order Status -->
+<main class="grid-container">
+    <profile class="featured">
+        <div>
+            <h2>Order Status:</h2>
+            {% for item in customer.get_orders %}
+            {% if item %}
+           
+            <ul>
+                <li>
+                    <profile>
+                        <div class="rating-box">
+                        Item: {{item.board_game.title}} x {{item.quantity}}
+                        <br>
+                        {{item.order.status}}
+                    </div>
+                    </profile>
+                </li>
+            </ul>
+            {% else %}
+            <p>You don't have any orders</p>
+            {%endif%}
+            {% endfor %}
+        </div>
+    </profile>
 </main>
 
+<!-- End of Order Status -->
 
+<!-- Show Rating of Current Customer -->
+<main class="grid-container">
+    <div> 
+        <h2>{{customer.first_name}}'s Ratings:</h2>
+        {% for s in customer.get_rating_messages %}
+        <div class="rating-box">
+        <ul style="display: flex;">
+            <li>
+                <profile>
+                    <div>
+                        <a href="{% url 'delete_rating' s.pk %}" style="text-decoration: underline;">Delete</a>
+                    </div>
+                    Board Game: <strong>{{s.board_game.title}}</strong>
+                    <br>
+                    Comment: {{s.comment}}
+                    <br>
+                    Posted on: {{s.comment_date}}
+                    <br>
+                    Rating(0-5): {{s.rating}}
+                </profile>
+            </li>
+        </ul>
+    </div>
+        {% endfor %}
+    </div>
+</main>
+<!-- End Show Rating of Current Customer -->
 {% endblock %}

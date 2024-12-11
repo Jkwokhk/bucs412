@@ -1,0 +1,16 @@
+<!-- project/graph.html -->
+{% extends 'project/base.html'%}
+{% block content %}
+<h2>Customer Analytics</h2>
+<!-- Customer Analytics -->
+<h1>Customer Age vs Board Game Genre</h1>
+    <div>
+        {% if error %}
+            <p>{{ error }}</p>
+        {% else %}
+            <!-- Embed the Plotly graph -->
+            {{ graph|safe }}
+        {% endif %}
+    </div>
+<!-- End Customer Analytics -->
+{% endblock %}

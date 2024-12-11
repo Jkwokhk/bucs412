@@ -2,8 +2,14 @@
 
 body {
     margin: 30px;
-    background: #5151f2;
+    background: #2894d7;
     font-family:Verdana, Geneva, Tahoma, sans-serif;
+    background-image: 
+    radial-gradient(circle, rgba(255, 255, 255, 0.5) 20%, transparent 25%),
+    radial-gradient(circle, rgba(255, 255, 255, 0.4) 15%, transparent 20%),
+    radial-gradient(circle, rgba(255, 255, 255, 0.3) 10%, transparent 15%);
+  background-size: 100px 100px, 150px 150px, 200px 200px; /* Sizes of the bubbles */
+  background-position: 0 0, 50px 50px, 75px 75px; /* Offset for layering */
     
 }
 
@@ -25,9 +31,18 @@ ul, li {
 }
 
 h1, h2, h3, h4, h5, h6 {
-    font-family:Verdana, Geneva, Tahoma, sans-serif;
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     color: #150484;
 }
+
+.logo {
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: #150484;
+    margin-right: auto;
+    
+}
+
+
 strong {
     font-family:Verdana, Geneva, Tahoma, sans-serif;
     color: #150484;
@@ -38,7 +53,7 @@ p {
 }
 
 header {
-    background-color: #fff;
+    background-color: #2894d7;
     /* max-width: 900px; */
     border:#fff 4px;
     border-radius: 4px;
@@ -48,6 +63,12 @@ header {
     position: sticky;
     top: 0;
     z-index: 999;
+    background-image: 
+    radial-gradient(circle, rgba(255, 255, 255, 0.5) 20%, transparent 25%),
+    radial-gradient(circle, rgba(255, 255, 255, 0.4) 15%, transparent 20%),
+    radial-gradient(circle, rgba(255, 255, 255, 0.3) 10%, transparent 15%);
+  background-size: 100px 100px, 150px 150px, 200px 200px; /* Sizes of the bubbles */
+  background-position: 0 0, 50px 50px, 75px 75px; /* Offset for layering */
     
     
 }
@@ -65,19 +86,55 @@ aside {
 
 main {
     margin-top: 100px;
-    margin: 20px auto;
+    
     
 }
 
+.rating-box{
+    align-items: center;
+    gap: 10px;
+    padding: 10px;
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+   margin-left: 50px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    max-width: 1400px;
+}
+
+.genre-form {
+   
+    align-items: center;
+    gap: 10px;
+    padding: 10px;
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+   
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    
+    max-width: 1600px;
+}
+
+.genre-select {
+    padding: 8px 12px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background-color: white;
+    color: #333;
+    cursor: pointer;
+    transition: border-color 0.2s;
+}
 
 
 
 .grid-container {
     background: #fff;
-    gap: 25px;
-    margin: 20px auto;
+    gap: 10px;
+    margin:  auto;
+    margin-left: 0;
     display: grid;
-    grid-template-columns: repeat(5, 1fr);
+    grid-template-columns: repeat(2, 1fr);
 }
 
 .status-messages {
@@ -100,15 +157,44 @@ main {
 
 nav {
     border-top: 1px solid #150484;
+    background-color: #2894d7;
     align-items: top;
     font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    
+    background-image: 
+    radial-gradient(circle, rgba(255, 255, 255, 0.5) 20%, transparent 25%),
+    radial-gradient(circle, rgba(255, 255, 255, 0.4) 15%, transparent 20%),
+    radial-gradient(circle, rgba(255, 255, 255, 0.3) 10%, transparent 15%);
+  background-size: 100px 100px, 150px 150px, 200px 200px; /* Sizes of the bubbles */
+  background-position: 0 0, 50px 50px, 75px 75px; /* Offset for layering */
 }
 
 nav li {
     display: inline-block;
 }
 
+.nav-links {
+    list-style: none;
+    display: flex;
+    margin-top: auto;
+    padding: 0;
+}
 
+.nav-links li {
+    margin-left: 20px;
+}
+
+.nav-links li a {
+    text-decoration: none;
+    color: white;
+    font-size: 18px;
+    margin-top: 22px;
+   
+}
+
+.navbar-links{
+   margin-left: 400px;
+}
 
 profile.featured {
     grid-column: span 4;
@@ -181,17 +267,21 @@ newsfeed_item {
 
 /* This code will help crop an image to display a small size on the all profiles page */
 .crop {
-    width: 150px;
-    height: 150px;
+    width: 500px;
+    height: 450px;
     overflow: hidden;
     border: 4px solid #fff;
     background-color: #fff;
-    border-radius: 8px;
+    margin: auto;
+    text-align: center;
+  
 }
 
 .crop img {
-    width: 200px; 
+    width: 350px; 
+    height: 250px;
     margin: 0px 0 0 -50px;
+    margin-left: 10px;
     border: 0;
 }
 
@@ -259,7 +349,7 @@ input[type=submit] {
     .grid-container {
         background: #ddd;
         display: grid;
-        grid-template-columns: repeat(4, 1fr);
+        grid-template-columns: repeat(2, 1fr);
         gap: 25px;
         margin: 20px auto;
     }
@@ -271,7 +361,7 @@ input[type=submit] {
     .grid-container {
         background: #ddd;
         display: grid;
-        grid-template-columns: repeat(3, 1fr);
+        grid-template-columns: repeat(2, 1fr);
         gap: 25px;
         margin: 20px auto;
     }

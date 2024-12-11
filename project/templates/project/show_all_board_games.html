@@ -3,14 +3,53 @@
 
 {% extends 'project/base.html' %}
 {% block content %}
+<div class="genre-form">
+<form method="get" action="{% url 'show_all_board_games' %}">
+    <select name="genre" class="genre-select" onchange="this.form.submit()">
+        <option value="">All Genres</option>
+        {% for key, value in genres.items %}
+            <option value="{{ key }}" {% if selected_genre == key %} selected {% endif %}>
+                {{ value }}
+            </option>
+        {% endfor %}
+    </select>
+
+     <!-- Hidden input for stock -->
+    <input type="hidden" name="stock_quantity" value="{{ selected_stock_quantity }}">
+</form>
+</form>
+
+<form method="get" action="{% url 'show_all_board_games' %}">
+    <!-- Availability Dropdown -->
+    <select name="stock_quantity" class="genre-select" onchange="this.form.submit()">
+        <option value="">Availability</option>
+        <option value="in_stock" {% if selected_stock_quantity == 'in_stock' %}selected{% endif %}>In Stock</option>
+        <option value="out_of_stock" {% if selected_stock_quantity == 'out_of_stock' %}selected{% endif %}>Out of Stock</option>
+    </select>
+
+    <!-- Hidden input for genre -->
+    <input type="hidden" name="genre" value="{{ selected_genre }}">
+</form>
+
+
+</div>
 <main class="grid-container">
+   
+    
+
     {% for game in board_games %}
     <profile>
         {% if game.image_url %}
         <div class="crop">
             <!-- Link to Board Game here -->
-             <a href="{% url 'show_board_game_with_pk' game.id %}">{{game.title}}</a>
-             <img src="{{game.image_url}}" alt="{{game.image_url}}">
+             
+             <a href="{% url 'show_board_game_with_pk' game.id %}"> <img src="{{game.image_url}}" alt="{{game.image_url}}"></a>
+             <br>
+             <strong>{{game.title}}</strong>
+             <br>
+             <p>{{game.publisher}}</p>
+           
+             <h2>${{game.price}}</h2>
         </div>
         {%endif%}
     </profile>

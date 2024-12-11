@@ -1,0 +1,9 @@
+<!-- project/checkout.html -->
+{% extends 'project/base.html'%}
+{% block content %}
+<h2>Thank you for your Purchase!</h2>
+<!-- Checkout View -->
+<a href="{% url 'show_profile' %}"> Check My Orders</a>
+<a href="{% url 'show_all_board_games' %}">Continue Shopping</a>
+<!-- Checkout View -->
+{% endblock %}

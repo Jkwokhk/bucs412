@@ -1,0 +1,27 @@
+<!-- project/show_cart.html -->
+{% extends 'project/base.html'%}
+{% block content %}
+<h2>Your Shopping Cart</h2>
+{% if order_items %}
+    <ul>
+        {% for item in order_items %}
+            {{item.board_game.title}}
+            {{item.quantity}} x {{item.board_game.price}}
+            
+            <form method="POST" action="{% url 'delete_cart' item.pk %}" style="display:inline;">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-danger">Delete</button>
+            </form>
+            <br>
+        {% endfor %}
+    </ul>
+    <p>Total: ${{total_price}}</p>
+    <form method="post" action="{% url 'checkout' %}">
+        {% csrf_token %}
+        <button type="submit">Proceed to Checkout</button>
+    </form>
+{% else %}
+    <p>Your cart is empty</p>
+{% endif %}
+
+{% endblock %}

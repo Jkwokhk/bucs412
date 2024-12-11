@@ -18,19 +18,36 @@
         <p>Genre: {{board_game.genre}}</p>
         </div>
          <!-- End details of Board Game -->
-    </profile>
+        <div class="main">
+         {% if request.user.is_authenticated %}
+         <a href="{% url 'create_rating' board_game.pk %}">Rate this Product</a>
+         <a href="{% url 'add_to_cart' board_game.pk %}" > Add to Cart </a>
+         {% else %}
+         <a href="{% url 'login' %}">Rate this Product</a>
+         <a href="{% url 'login' %}">Add to Cart</a>
+         {% endif %}
+        </div>
 
-    <a href="{% url 'create_rating' board_game.pk %}">Rate this Product</a>
+    </profile>
+    
 </main>
+
+
+</profile>
+
 <main class="grid-container">
     <!-- Show ratings -->
     <ul>
         {% for rating in board_game.get_ratings %}
         <profile>
-            <div>
-                <p>{{rating.customer.first_name}} {{rating.customer.last_name}}</p>
-                <p>{{rating.comment}}</p>
-                <p>{{rating.rating}}</p>
+            <div class="rating-box">
+                Customer: {{rating.customer.first_name}} {{rating.customer.last_name}}
+                <br>
+                Comment: {{rating.comment}}
+                <br>
+                Rating: {{rating.rating}}
+                <br>
+                <br>
             </div>
         </profile>
         {% endfor %}

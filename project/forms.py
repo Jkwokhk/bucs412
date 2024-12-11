@@ -21,3 +21,15 @@ class CreateCustomerForm(forms.ModelForm):
     class Meta:
         model = Customer
         fields = ['first_name', 'last_name', 'email', 'address', 'age']
+
+class AddToCartForm(forms.ModelForm):
+    '''a form to add an order to the database'''
+    class Meta:
+        model = OrderItem
+        fields = ['board_game', 'quantity' ]
+
+class UpdateCustomerForm(forms.ModelForm):
+    '''form to update profile'''
+    class Meta:
+        model = Customer
+        fields = ['email', 'address']
