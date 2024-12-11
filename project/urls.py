@@ -1,4 +1,5 @@
 # project/urls.py
+# Jason Kwok U35429106
 # description: URL patterns for the terrier_games app
 from django.urls import path
 from django.conf import settings
