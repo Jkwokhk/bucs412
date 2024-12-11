@@ -2,6 +2,7 @@
 # define views for project
 # Create your views here.
 from django.http import HttpRequest
+from django.contrib import messages
 from django.http.response import HttpResponse as HttpResponse
 from django.shortcuts import render, redirect, get_object_or_404
 from django.db import transaction
@@ -43,10 +44,20 @@ class ShowAllBoardGamesView(ListView):
         # Filter by stock quantity (availability)
         stock_filter = self.request.GET.get('stock_quantity')
         if stock_filter == 'in_stock':
-            queryset = queryset.filter(stock_quantity__gt=0)  # Games in stock
+             # Games in stock
+            queryset = queryset.filter(stock_quantity__gt=0) 
         elif stock_filter == 'out_of_stock':
-            queryset = queryset.filter(stock_quantity=0)  # Games out of stock
+             # Games out of stock
+            queryset = queryset.filter(stock_quantity=0) 
 
+        # Sort by price
+        price_sort = self.request.GET.get('price_sort')
+        if price_sort == 'asc':
+            # ascending order
+            queryset = queryset.order_by('price')  
+        elif price_sort == 'desc':
+            # descending order
+            queryset = queryset.order_by('-price')  
 
 
         return queryset
@@ -57,6 +68,7 @@ class ShowAllBoardGamesView(ListView):
         context['genres'] = dict(BoardGame.genres)  # Get available genres
         context['selected_genre'] = self.request.GET.get('genre', '')
         context['selected_stock_quantity'] = self.request.GET.get('stock_quantity', '')
+        context['selected_price_sort'] = self.request.GET.get('price_sort', '')
         return context
 
 
@@ -134,10 +146,10 @@ class CreateCustomerProfileFormView(CreateView):
     
     def get_success_url(self):
         '''return URL to redirect after successful submission'''
-        return reverse('show_profile')
+        return reverse('show_all_board_games')
     
 
-class ShowProfilePageView(DetailView):
+class ShowProfilePageView(LoginRequiredMixin, DetailView):
     '''show detailed profile'''
     model = Customer
     template_name = 'project/show_profile.html'
@@ -166,6 +178,8 @@ class AddToCartViewForm(LoginRequiredMixin, CreateView):
 
     def form_valid(self, form):
         '''handle cart form submission'''
+
+      
         customer = Customer.objects.get(user=self.request.user)
         # Check if the customer already has a cart order
         existing_order = Order.objects.filter(customer=customer, status='cart').first()
@@ -268,8 +282,6 @@ class CustomerGraphView(ListView):
         # Get orders with 'cart' or 'shipped' status
         queryset = Order.objects.filter(status__in=['cart', 'shipped'])
         
-        # Optional: Apply filters based on GET parameters (e.g., for a specific time frame)
-        # Example: if 'start_date' and 'end_date' are passed in the request:
         start_date = self.request.GET.get('start_date')
         end_date = self.request.GET.get('end_date')
         
@@ -283,38 +295,55 @@ class CustomerGraphView(ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
 
-        # Get the orders to be processed
+        # get the orders to be processed
         orders = self.get_queryset()
 
-        # Prepare data for the scatter plot
+        # prepare data for the scatter plot
         customer_ages = []
         genres = []
+        genre_colors = []
+
+        # create genre color map
+        genre_color_map = {
+        'Strategy': 'rgb(255, 99, 71)',
+        'Family': 'rgb(60, 179, 113)',
+        'Party': 'rgb(30, 144, 255)',
+        'Wargame': 'rgb(255, 165, 0)',
+        'Detective': 'rgb(255, 223, 186)',
+        'Roleplay': 'rgb(139, 0, 139)',
+        'Other': 'rgb(0,0,0)',
+         }
 
         for order in orders:
             customer = order.customer
-            if customer.age:  # Ensure the customer has an age
+            if customer.age: 
+                 # ensure the customer has an age
                 customer_ages.append(customer.age)
             for item in order.order_items.all():
                 board_game = item.board_game
-                if board_game.genre:  # Ensure the board game has a genre
+                if board_game.genre:  
+                    # ensure the board game has a genre
                     genres.append(board_game.genre)
+                    # assign color
+                    genre_colors.append(genre_color_map.get(board_game.genre, 'rgb(211, 211, 211)'))
 
-        # Handle cases where data might be missing
+
+        # handle cases where data might be missing
         if not customer_ages or not genres:
             context['error'] = "No valid data available for plotting"
             return context
 
-        # Scatter plot
+        # scatter plot
         scatter_plot = go.Scatter(
             x=customer_ages,
             y=genres,
             mode='markers',
-            marker=dict(size=12, color='rgba(51,204,255,0.6)', line=dict(width=1, color='rgba(51,204,255,1)')),
-            text=genres,  # Show genre as hover text
+            marker=dict(size=12, color=genre_colors, line=dict(width=1, color='rgba(51,204,255,1)')),
+            text=genres,  
             name='Customer Age vs Genre'
         )
 
-        # Generate the Plotly graph as HTML
+        # generate the Plotly graph as HTML
         graph = plotly.offline.plot({
             "data": [scatter_plot],
             "layout": go.Layout(
@@ -325,12 +354,13 @@ class CustomerGraphView(ListView):
             )
         }, auto_open=False, output_type='div')
 
-        context['graph'] = graph  # Add the graph to context
+        context['graph'] = graph 
 
         return context
 
-class DeleteCartView(DeleteView):
-    '''View to Delete Cart Items'''
+class DeleteCartView(LoginRequiredMixin, View):
+    '''View to delete cart items'''
+    
     def post(self, request, *args, **kwargs):
         # Get the current logged-in user and their cart
         customer = Customer.objects.get(user=request.user)
@@ -343,6 +373,5 @@ class DeleteCartView(DeleteView):
         # Delete the item
         item.delete()
         
-        order.save()
-        
-        return redirect('show_profile')  # Redirect back to the profile or cart page
+        # Redirect back to the cart page
+        return redirect('show_cart')

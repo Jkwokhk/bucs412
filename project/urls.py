@@ -23,7 +23,7 @@ urlpatterns = [
     path('checkout/', views.CheckoutView.as_view(), name='checkout'),
     path('profile/update/', UpdateProfileView.as_view(), name='update_profile'),
     path('graph/', CustomerGraphView.as_view(), name='graph'),
-    path('show_cart/delete_cart/<int:pk>/', DeleteCartView.as_view(), name='delete_cart'),
+    path('show_cart/delete_cart/<int:item_id>/', DeleteCartView.as_view(), name='delete_cart'),
 
     
 ]

@@ -24,6 +24,17 @@ body {
     border-radius: 8px;
 }
 
+.msg{
+    color: #ffffff;
+    text-decoration: none;
+    background-color: #150484;
+    display: inline-block;
+    border: 4px;
+    padding: 4px;
+    margin : 1px;
+    border-radius: 8px;
+}
+
 ul, li {
     padding: 0px;
     list-style-type: none;
@@ -100,6 +111,16 @@ main {
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     overflow: hidden;
     max-width: 1400px;
+}
+
+.filter-list {
+    display: flex;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+.filter-list li{
+    margin:10px;
 }
 
 .genre-form {

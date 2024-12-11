@@ -4,6 +4,8 @@
 {% extends 'project/base.html' %}
 {% block content %}
 <div class="genre-form">
+<ul class="filter-list">
+<li>
 <form method="get" action="{% url 'show_all_board_games' %}">
     <select name="genre" class="genre-select" onchange="this.form.submit()">
         <option value="">All Genres</option>
@@ -14,9 +16,12 @@
         {% endfor %}
     </select>
 
-     <!-- Hidden input for stock -->
+     <!-- Hidden input for stock, price sort -->
     <input type="hidden" name="stock_quantity" value="{{ selected_stock_quantity }}">
+    <input type="hidden" name="price_sort" value="{{ selected_price_sort }}">
 </form>
+</li>
+<li>
 </form>
 
 <form method="get" action="{% url 'show_all_board_games' %}">
@@ -27,11 +32,28 @@
         <option value="out_of_stock" {% if selected_stock_quantity == 'out_of_stock' %}selected{% endif %}>Out of Stock</option>
     </select>
 
-    <!-- Hidden input for genre -->
+    <!-- Hidden input for genre, price sort -->
     <input type="hidden" name="genre" value="{{ selected_genre }}">
+    <input type="hidden" name="price_sort" value="{{ selected_price_sort }}">
 </form>
+</li>
+<li>
+  <!-- Price Sorting Dropdown -->
+  <form method="get" action="{% url 'show_all_board_games' %}">
+    <select name="price_sort" class="genre-select" onchange="this.form.submit()">
+        <option value="">Sort by Price</option>
+        <option value="asc" {% if selected_price_sort == 'asc' %}selected{% endif %}>Ascending</option>
+        <option value="desc" {% if selected_price_sort == 'desc' %}selected{% endif %}>Descending</option>
+    </select>
 
+    <!-- Hidden inputs for genre, stock, and price range -->
+    <input type="hidden" name="genre" value="{{ selected_genre }}">
+    <input type="hidden" name="stock_quantity" value="{{ selected_stock_quantity }}">
 
+</form>
+</li>
+
+</ul>
 </div>
 <main class="grid-container">
    

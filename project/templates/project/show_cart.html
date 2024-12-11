@@ -5,7 +5,8 @@
 {% if order_items %}
     <ul>
         {% for item in order_items %}
-            {{item.board_game.title}}
+            {{item.board_game.title}}:
+            <br>
             {{item.quantity}} x {{item.board_game.price}}
             
             <form method="POST" action="{% url 'delete_cart' item.pk %}" style="display:inline;">
